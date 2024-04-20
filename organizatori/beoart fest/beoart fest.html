@@ -126,11 +126,6 @@
               </div>
             </form>
           </div>
-
-          <form class="d-flex" role="search">
-            <input class="form-control me-2" type="search" placeholder="Nađi organizatora" aria-label="Search" id="searchbar">
-            <button class="btn btn-outline-success" id="searchbtn"type="submit">Pretraga</button>
-          </form>
         </div>
       </div>
     </nav>
@@ -140,25 +135,50 @@
         <div class="overlay-text"><h1>BeoArt Fest</h1></div>
     </div>
     <br/>
-    
-    <h2>Relevantne informacije:</h2>
-    <br/>
-    <div class="uveziInfo">
-        <p class="orginfo"> Naziv: BeoArt Fest <br/>
-            Adresa:  Knez Mihailova 48, Beograd, 11000 <br/>
-            Godina osnivanja:  2015 <br/>
-            Kontakt telefon:  011/3042-568 <br/>
-            Email: kontakt@beoartfest.rs <br/>
-            <hr/>
-        </p>
-        <h2 style="text-indent: 2vw;"> Festivali: </h2>
+      <h2 style="margin-top: 3vh; text-indent: 2vw;">Relevantne informacije:</h2>
+      <br/>
+      <div class="uveziInfo">
+          <p class="orginfo" style="margin-left: 1vw;"> Naziv: BeoArt Fest <br/>
+              Adresa:  Knez Mihailova 48, Beograd, 11000 <br/>
+              Godina osnivanja:  2015 <br/>
+              Kontakt telefon:  011/3042-568 <br/>
+              Email: kontakt@beoartfest.rs <br/>
+              <hr/>
+          </p>
+      </div>
+    </div>
+        <h2 style="text-indent: 2vw;"> Pretraga festivala: </h2>
+        <br/>
+          <form>
+            <input name="search" type="text" class="search-input" placeholder="Pretraži..." style="font-size: 18;">
+            <label class="searchqueries">
+              <input type="checkbox" name="byname" value="search" > Pretraži po imenu
+            </label>
+            <label class="searchqueries" id="type-select">
+              <select name="dropdown-type" class="searchqueries" >
+                <option value="">-Tip festivala-</option>
+                <option value="option1">Muzički</option> 
+                <option value="option2">Umetnički</option>
+                <option value="option3">Filmski</option>
+                <option value="option4">Gastronomski</option>
+                <option value="option5">Edukativni</option>
+              </select>
+              <input type="checkbox" name="bytype" value="search" > Pretraži po tipu
+            </label>
+            <br/>
+            <button type="submit" class="btn btn-outline-success searchqueries" id="searchbtn" style="width:60%; align-self: center;">Pretraga</button>
+          </form>       
+          <br/>
+          <hr/>
+
+          <h2 style="text-indent: 2vw;"> Svi festivali: </h2>
             <div id="carouselExampleControls" class="carousel slide" data-bs-ride="carousel">
               <div class="carousel-inner">
                 <div class="carousel-item active">
                   <div class="row">
                     <div class="col">
                       <div class="card-car"><a href="festival 1.html">
-                        <img src="https://i.imgur.com/nIhAjPQ.jpeg" class="card-img-top" alt="Image 1">
+                        <img src="https://i.imgur.com/nIhAjPQ.jpeg" class="card-img-top" alt="Slika Festivala Ostrvske Muzike">
                         <div class="card-body">
                           <h4 class="card-title">Festival Ostrvske Muzike</h4></a>
                           <p class="card-text">Muzički festival, avionski prevoz. </p>
