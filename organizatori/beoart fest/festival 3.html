@@ -19,12 +19,12 @@
     <header id="ceo-header">
       <nav class="navbar navbar-expand-lg bg-body-tertiary">
         <div class="container-fluid">
-            <a href="../main page/index.html"> <img src="../../ikonica.png" alt="ikonica" id="ikonica" title="Hasta la Fiesta" style="width:7vw"></a>
+            <a href="../../main page/index.html"> <img src="../../ikonica.png" alt="ikonica" id="ikonica" title="Hasta la Fiesta" style="width:7vw"></a>
           <a class="navbar-brand" id="naziv" href="../../main page/index.html" style='font-size:2.5vw'><strong><em>Hasta la Fiesta</em></strong></a>
           <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
           </button>
-          <div class="collapse navbar-collapse" id="navbarSupportedContent">
+          <div class="collapse navbar-collapse" id="navbarSupportedContent" style="margin-right: 2vw"> 
             <ul class="navbar-nav me-auto mb-2 mb-lg-0">
               <li class="nav-item">
                 <a class="nav-link active" aria-current="page" href="../../main page/index.html">Početna</a>
@@ -34,8 +34,8 @@
                   Administratorske stranice
                 </a>
                 <ul class="dropdown-menu">
-                  <li><a class="dropdown-item" href="#">Rukovanje pojedinačnim organizatorima</a></li>
-                  <li><a class="dropdown-item" href="#">Rukovanje pojedinačnim korisnicima</a></li>
+                  <li><a class="dropdown-item" href="../../admins/organizators_admin.html">Rukovanje pojedinačnim organizatorima</a></li>
+                  <li><a class="dropdown-item" href="../../admins/user_admin.html">Rukovanje pojedinačnim korisnicima</a></li>
                 </ul>
               </li>
             </ul>
@@ -73,8 +73,56 @@
                 </form>
               </div>
               <form>
-                <button class="btn" id="registerbtn" type="button" role="button">Registracija</button>
-              </form >
+                <button class="btn btn-outline-success" id="registerbtn" type="button" role="button" onclick="document.getElementById('register-modal-popup').style.display='block'">Registracija</button>            </form >
+              
+              <div id="register-modal-popup" class="modal">
+                <span onclick="document.getElementById('register-modal-popup').style.display='none'"
+              class="close" title="Close Modal">&times;</span>
+              
+                <form class="modal-content animate" action="/">
+              
+                  <div class="container" id="registerinfo">
+                    <h3 id="regtitle">Dobrodošli! Unesite svoje podatke:</h3>
+                    <br/>
+                    <div class="row">
+                      <div class="column-register">
+                        <label for="uname" class="registerinfo"><b>Korisničko ime</b></label> <br/>
+                        <input type="text" placeholder="Unesite svoj username" name="uname" class="registerinfo" required>
+                        <br/>
+                        <label for="psw" class="registerinfo"><b>Lozinka</b></label><br/>
+                        <input type="password" placeholder="Unesite lozinku" name="psw" class="registerinfo" required>
+                        <br/>
+                        <label for="firstname" class="registerinfo"><b>Ime</b></label> <br/>
+                        <input type="text" placeholder="Unesite ime" name="firstname" class="registerinfo" required>
+                        <br/>
+                        <label for="lastname" class="registerinfo"><b>Prezime</b></label> <br/>
+                        <input type="text" placeholder="Unesite prezime" name="lastname" class="registerinfo" required>
+                        <br/>
+                        <label for="email" class="registerinfo"><b>Email</b></label> <br/> 
+                        <input type="email" placeholder="Unesite email" name="email" class="registerinfo" required>
+                      </div>
+                      <div class="column-register">
+                        <label for="datumrodjenja" class="registerinfo"><b>Datum rođenja</b></label> <br/>
+                        <input type="date" placeholder="Unesite datum rođenja" name="datumrodjenja" class="registerinfo" required>
+                        <br/>
+                        <label for="adresa" class="registerinfo"><b>Adresa</b></label> <br/>
+                        <input type="text" placeholder="Unesite adresu" name="adresa" class="registerinfo" required>
+                        <br/>
+                        <label for="telefon" class="registerinfo"><b>Telefon</b></label> <br/>
+                        <input type="text" placeholder="Unesite telefon" name="telefon" class="registerinfo" required>
+                        <br/>
+                        <label for="zanimanje" class="registerinfo"><b>Zanimanje</b></label> <br/>
+                        <input type="text" placeholder="Unesite zanimanje" name="zanimanje" class="registerinfo" required>
+                      </div>
+                    </div>
+                    <button type="submit" class="glavnodugme">Registruj se</button>
+                    <br/>
+                  </div>
+    
+                  <div class="container" style="background-color:#f1f1f1; width:100%; bottom: 0;"> 
+                    <button type="button" onclick="document.getElementById('register-modal-popup').style.display='none'" class="cancelbtn">Otkaži</button>
+                  </div>
+                </form>
             </div>
         </nav>
     </header>
