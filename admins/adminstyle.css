@@ -1,0 +1,32 @@
+table {
+    border: 0.5vw black solid;
+    border-width: 1vw;
+    border-collapse: collapse;
+    align-items: left;
+    width: 90%;
+    align-self: center;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+thead {
+    border: 0.2vw black solid;
+    padding: 1vw;
+    background-color: lightgray;
+}
+
+th {
+    border: 0.5vw black solid;
+    padding: 2vw;
+}
+
+td {
+    border: 0.5vw darkgray solid;
+    padding: 1vw;
+    text-align: center;
+    width: auto;
+}
+table, th, td {
+    border: 1px solid black;
+    text-align: justify;
+  }
