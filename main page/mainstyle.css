@@ -362,7 +362,7 @@ body {
 .modal {
     display: none; 
     position: fixed; 
-    z-index: 1; 
+    z-index: 100; 
     left: 0;
     top: 0;
     width: 100%;
@@ -373,6 +373,7 @@ body {
     padding-top: 60px;
     align-items: center;
     align-content: center;
+    align-self: center;
   }
   
 
@@ -685,3 +686,30 @@ ul.navbar-nav{
     padding-right: 2vw;
 }
 
+.edit-btn{
+    background-color: beige;
+    color: brown;
+    border-radius: 1vw;
+}
+
+.del-btn{
+    background-color: red;
+    color: white;
+    border-radius: 1vw;
+}
+
+.search-input{
+    border: 0.1vw solid darkgray;
+    margin-left: 3vw;
+}
+
+.searchqueries{
+    margin-left: 2vw;
+    margin-right: 2vw;
+}
+
+.type-select{
+    margin-left: 2vw;
+    border: 0.1vw solid darkgray;
+
+}
