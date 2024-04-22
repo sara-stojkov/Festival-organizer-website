@@ -141,80 +141,74 @@ function login(e) {
     });
 }
 
-
-// Function to parse URL parameters
-function getUrlParameter(name) {
-  name = name.replace(/[\[]/, '\\[').replace(/[\]]/, '\\]');
-  var regex = new RegExp('[\\?&]' + name + '=([^&#]*)');
-  var results = regex.exec(location.search);
-  return results === null ? '' : decodeURIComponent(results[1].replace(/\+/g, ' '));
-}
-
-// Function to escape special characters in a string for use in a regular expression
-function escapeRegExp(string) {
-  return string.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'); // $& means the whole matched string
-}
-
-// Function to highlight search text in the page text
-function highlightSearchQuery(searchText) {
-  var pageText = document.body.innerText;
-  var regex = new RegExp(escapeRegExp(searchText), "gi");
-  var highlightedText = pageText.replace(regex, function(match) {
-    return "<span style='color: yellow;'>" + match + "</span>";
+function searchPage() {
+  // Get the search query entered by the user
+  var searchQuery = document.getElementById('searchbar').value.trim().toLowerCase();
+  
+  // Remove existing highlights
+  var highlights = document.querySelectorAll('.highlight');
+  highlights.forEach(function(element) {
+      element.classList.remove('highlight');
   });
-  document.body.innerHTML = highlightedText;
+  
+  // If the search query is empty, exit the function
+  if (searchQuery === '') return;
+  
+  // Find and highlight matching text
+  var elements = document.querySelectorAll('#content *');
+  elements.forEach(function(element) {
+      highlightTextInElement(element, searchQuery);
+  });
 }
 
-document.getElementById("searchbtn").addEventListener("click", function(event) {
-  event.preventDefault(); // Prevent form submission and page refresh
-  var searchText = document.getElementById("searchbar").value;
-  highlightSearchQuery(searchText);
-});
-
-// Get search query from URL parameter and apply highlighting
-window.onload = function() {
-  var searchQuery = getUrlParameter('q');
-  if (searchQuery) {
-      document.getElementById("searchbar").value = searchQuery;
-      highlightSearchQuery(searchQuery);
+function highlightTextInElement(element, searchQuery) {
+  var nodesToProcess = [element];
+  while (nodesToProcess.length > 0) {
+      var node = nodesToProcess.shift();
+      if (node.nodeType === Node.TEXT_NODE) {
+          var text = node.nodeValue.toLowerCase();
+          var index = text.indexOf(searchQuery);
+          while (index !== -1) {
+              var beforeText = node.nodeValue.substring(0, index);
+              var matchedText = node.nodeValue.substring(index, index + searchQuery.length);
+              var afterText = node.nodeValue.substring(index + searchQuery.length);
+              
+              // Find the start and end of the matched word
+              var startOfWord = beforeText.lastIndexOf(' ') + 1;
+              var endOfWord = index + searchQuery.length;
+              
+              // Trim spaces before and after the matched word
+              beforeText = beforeText.substring(0, startOfWord);
+              afterText = afterText.trimLeft();
+              
+              // Trim spaces at the end of beforeText and start of afterText
+              beforeText = beforeText.trimRight();
+              afterText = afterText.trimLeft();
+              
+              // Create a new span element to wrap the matching text
+              var span = document.createElement('span');
+              span.classList.add('highlight');
+              span.appendChild(document.createTextNode(matchedText));
+              
+              // Insert the highlighted text at the correct position
+              if (beforeText) {
+                  var beforeTextNode = document.createTextNode(beforeText);
+                  node.parentNode.insertBefore(beforeTextNode, node);
+              }
+              node.parentNode.insertBefore(span, node);
+              
+              // Update the node value to continue searching for subsequent occurrences
+              node.nodeValue = afterText;
+              text = node.nodeValue.toLowerCase();
+              index = text.indexOf(searchQuery);
+          }
+      } else if (node.nodeType === Node.ELEMENT_NODE && node.childNodes.length > 0) {
+          for (var i = 0; i < node.childNodes.length; i++) {
+              nodesToProcess.push(node.childNodes[i]);
+          }
+      }
   }
 }
 
-// Event listener for form submission
-document.getElementById("searchForm").addEventListener("submit", function(event) {
-  event.preventDefault(); // Prevent form submission
-  var searchText = document.getElementById("searchbar").value;
-  var searchUrl = window.location.href.split('?')[0] + '?q=' + encodeURIComponent(searchText);
-  window.location.href = searchUrl; // Redirect to URL with search query parameter
-});
 
-document.getElementById("searchbar").addEventListener("keypress", function(event) {
-  if (event.key === "Enter") {
-      event.preventDefault(); // Prevent form submission and page refresh
-      var searchText = document.getElementById("searchbar").value;
-      highlightSearchQuery(searchText);
-  }
-});
-
-
-// Function to add classes based on screen width
-function addClassesBasedOnScreenWidth() {
-  // Get the screen width
-  var screenWidth = window.innerWidth || document.documentElement.clientWidth || document.body.clientWidth;
-
-  // Check if the screen width is below a certain threshold
-  if (screenWidth <= 768) { // Adjust this threshold as needed
-    // Add classes to the elements with ids firstItem and secondItem
-    document.getElementById("logo-naziv").classList.add("row");
-  } else {
-    // Remove classes if not needed
-    document.getElementById("logo-naziv").classList.remove("row");
-  }
-}
-
-// Call the function initially to set classes based on initial screen width
-addClassesBasedOnScreenWidth();
-
-// Listen for window resize event to update classes if needed
-window.addEventListener('resize', addClassesBasedOnScreenWidth);
 
