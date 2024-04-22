@@ -1,29 +1,29 @@
 // Your web app's Firebase configuration
- const firebaseConfig = {
-  apiKey: "AIzaSyDIzbybru9FTtUBYQ-V9l5bboT6a9eOuDE",
-  authDomain: "hasta-la-fiesta.firebaseapp.com",
-  databaseURL: "https://hasta-la-fiesta-default-rtdb.europe-west1.firebasedatabase.app",
-  projectId: "hasta-la-fiesta",
-  storageBucket: "hasta-la-fiesta.appspot.com",
-  messagingSenderId: "1098342569306",
-  appId: "1:1098342569306:web:ae62c7538d1a692203cf63"
-};
+//  const firebaseConfig = {
+//   apiKey: "AIzaSyDIzbybru9FTtUBYQ-V9l5bboT6a9eOuDE",
+//   authDomain: "hasta-la-fiesta.firebaseapp.com",
+//   databaseURL: "https://hasta-la-fiesta-default-rtdb.europe-west1.firebasedatabase.app",
+//   projectId: "hasta-la-fiesta",
+//   storageBucket: "hasta-la-fiesta.appspot.com",
+//   messagingSenderId: "1098342569306",
+//   appId: "1:1098342569306:web:ae62c7538d1a692203cf63"
+// };
 
 // Initialize Firebase
-const app = initializeApp(firebaseConfig);
+//const app = initializeApp(firebaseConfig);
 
-var database_ref = firebase.database();
+//var database_ref = firebase.database();
 
-window.onscroll = function() {
-  var header = document.getElementById("header");
-  var sticky = header.offsetTop;
+// window.onscroll = function() {
+//   var header = document.getElementById("header");
+//   var sticky = header.offsetTop;
   
-  if (window.scrollY > sticky) {
-    header.classList.add("sticky");
-  } else {
-    header.classList.remove("sticky");
-  }
-};
+//   if (window.scrollY > sticky) {
+//     header.classList.add("sticky");
+//   } else {
+//     header.classList.remove("sticky");
+//   }
+// };
 
 var loginModal = document.getElementById('login-modal-popup');
 var registerModal = document.getElementById('register-modal-popup');
@@ -35,12 +35,13 @@ window.onclick = function(event) {
   }
 }
 
-const auth = firebase.auth();
-const database = firebase.database();
+// const auth = firebase.auth();
+// const database = firebase.database();
 
 document.getElementById("regform").addEventListener("submit", register);
 
-function register() {
+function register(e) {
+  e.preventDefault();
   var username = document.getElementById('registerusername').value;
   var password = document.getElementById('registerpassword').value;
   var firstName = document.getElementById('registerfirstname').value;
@@ -48,7 +49,7 @@ function register() {
   var email = document.getElementById('registeremail').value;
   var birthdate = document.getElementById('registerbirthdate').value;
   var adress = document.getElementById('registeradress').value;
-  var phoneNumber = document.getElementById('registerphonenumber').value;
+  var phoneNumber = document.getElementById('registerphone').value;
   var occupation = document.getElementById('registeroccupation').value;
 
   if (validate_email(email) === false || validate_password(password) === false || validate_field(username) === false || validate_field(firstName) === false || validate_field(lastName) === false || validate_field(birthdate) === false || validate_field(adress) === false || validate_field(phoneNumber) === false || validate_field(occupation) === false) {
@@ -61,34 +62,26 @@ function register() {
     return;
   }
 
-
-  auth.createUserWithEmailAndPassword(email, password)
-    .then(() => {
-      var user = auth.currentUser;
-
-      var database_ref = database.ref();
-
-      var user_data = {
-        "korisnickoIme": username,
-        "lozinka": password,
-        "ime": firstName,
-        "prezime": lastName,
-        "email": email,
-        "datumRodjenja": birthdate,
-        "adresa": adress,
-        "telefon": phoneNumber,
-        "zanimanje": occupation
-      }
-      
-      database_ref.child(korisnici).child(user.uid).set(user_data);
-
-      alert('Registracija uspešna!');
+  fetch('https://hasta-la-fiesta-default-rtdb.europe-west1.firebasedatabase.app/korisnici.json', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({
+      korisnickoIme: username,
+      lozinka: password,
+      ime: firstName,
+      prezime: lastName,
+      email: email,
+      datumRodjenja: birthdate,
+      adresa: adress,
+      telefon: phoneNumber,
+      zanimanje: occupation
     })
-    .catch((error) => {
-      var errorCode = error.code;
-      var errorMessage = error.message;
-      alert(errorMessage);
-    });
+  }).then(resonse => resonse.json())
+  .then(() => alert("Registracija uspešna!"))
+  .catch(e => alert("Greška"))
+
 }
 
 function validate_password(password) {
@@ -115,35 +108,39 @@ function validate_email(email) {
   return true;
 }
 
-function login() {
+document.getElementById("loginForm").addEventListener("submit", login);
+
+function login(e) {
+  e.preventDefault();
   var username = document.getElementById('loginusername').value;
   var password = document.getElementById('loginpassword').value;
-  console.log(username);
-  if (validate_field(username) === false || validate_password(password) === false) {
-    alert('Neuspešna prijava!');
-    return;
-  }
-  database_ref.child('korisnici').once('value', function(snapshot) {
-    var users = snapshot.val();
-    var foundUser = false;
 
-    for (var key in users) {
-      if (users.hasOwnProperty(key)) {
-        var user = users[key];
-        if (user.korisnickoIme === username && user.lozinka === password) {
-          foundUser = true;
-          break;
+  fetch('https://hasta-la-fiesta-default-rtdb.europe-west1.firebasedatabase.app/korisnici.json')
+    .then(response => response.json())
+    .then(data => {
+      if (data) {
+        for (const userKey in data) {
+          if (data[userKey].korisnickoIme === username) {
+            if (data[userKey].lozinka === password) {
+              alert("Uspešno ste prijavljeni!");
+              return; 
+            } else {
+              alert("Pogrešna lozinka!");
+              return; 
+            }
+          }
         }
+        alert("Korisničko ime ne postoji!");
+      } else {
+        alert("Nema registrovanih korisnika u sistemu!"); 
       }
-    }
-
-    if (foundUser) {
-      alert('Uspešna prijava!');
-    } else {
-      alert('Neuspešna prijava!');
-    }
-  });
+    })
+    .catch(error => {
+      console.error('Greška:', error);
+      alert("Greška prilikom prijave.");
+    });
 }
+
 
 // Function to parse URL parameters
 function getUrlParameter(name) {
