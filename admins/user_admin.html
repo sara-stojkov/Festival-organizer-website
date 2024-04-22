@@ -25,7 +25,7 @@
           <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
           </button>
-          <div class="collapse navbar-collapse" id="navbarSupportedContent">
+          <div class="collapse navbar-collapse" id="navbarSupportedContent" style="margin-right: 2vw">
             <ul class="navbar-nav me-auto mb-2 mb-lg-0">
               <li class="nav-item">
                 <a class="nav-link active" aria-current="page" href="../main page/index.html">Početna</a>
@@ -48,7 +48,7 @@
                 <span onclick="document.getElementById('login-modal-popup').style.display='none'"
               class="close" title="Close Modal">&times;</span>
               
-                <form class="modal-content animate" action="/">
+                <form class="modal-content animate" id="loginForm">
                   <div class="imgcontainer">
                     <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ2yiB7PF4xPNw8Xnvl9sS2tXBdBvDZvQyvJZRnm8pVCQ&s" alt="Avatar" class="avatar">
                   </div>
@@ -62,20 +62,66 @@
                     <br/>
                     <button type="submit" class="glavnodugme">Prijava</button>
                     <br/>
-                    <label>
-                      <input type="checkbox" checked="checked" name="remember"> Zapamti me
-                    </label>
                   </div>
               
                   <div class="container" style="background-color:#f1f1f1; width:100%; bottom: 0;"> 
                     <button type="button" onclick="document.getElementById('login-modal-popup').style.display='none'" class="cancelbtn">Cancel</button>
-                    <span class="psw" style="align-self: right;">Zaboravljena <a href="#">lozinka?</a></span>
                   </div>
                 </form>
               </div>
               <form>
-                <button class="btn" id="registerbtn" type="button" role="button">Registracija</button>
-              </form >
+                <button class="btn btn-outline-success" id="registerbtn" type="button" role="button" onclick="document.getElementById('register-modal-popup').style.display='block'">Registracija</button>            </form >
+              
+              <div id="register-modal-popup" class="modal">
+                <span onclick="document.getElementById('register-modal-popup').style.display='none'"
+              class="close" title="Close Modal">&times;</span>
+              
+                <form class="modal-content animate" action="" id="regform">
+              
+                  <div class="container" id="registerinfo">
+                    <h3 id="regtitle">Dobrodošli! Unesite svoje podatke:</h3>
+                    <br/>
+                    <div class="row">
+                      <div class="column-register">
+                        <label for="uname" class="registerinfo"><b>Korisničko ime</b></label> <br/>
+                        <input type="text" placeholder="Unesite svoj username" name="uname" class="registerinfo" id="registerusername" required>
+                        <br/>
+                        <label for="psw" class="registerinfo"><b>Lozinka</b></label><br/>
+                        <input type="password" placeholder="Unesite lozinku" name="psw" class="registerinfo" id="registerpassword" required>
+                        <br/>
+                        <label for="firstname" class="registerinfo"><b>Ime</b></label> <br/>
+                        <input type="text" placeholder="Unesite ime" name="firstname" class="registerinfo" id="registerfirstname" required>
+                        <br/>
+                        <label for="lastname" class="registerinfo"><b>Prezime</b></label> <br/>
+                        <input type="text" placeholder="Unesite prezime" name="lastname" class="registerinfo" id="registerlastname" required>
+                        <br/>
+                        <label for="email" class="registerinfo"><b>Email</b></label> <br/> 
+                        <input type="email" placeholder="Unesite email" name="email" class="registerinfo" id="registeremail" required>
+                      </div>
+                      <div class="column-register">
+                        <label for="datumrodjenja" class="registerinfo"><b>Datum rođenja</b></label> <br/>
+                        <input type="date" placeholder="Unesite datum rođenja" name="datumrodjenja" class="registerinfo" id="registerbirthdate" required>
+                        <br/>
+                        <label for="adresa" class="registerinfo"><b>Adresa</b></label> <br/>
+                        <input type="text" placeholder="Unesite adresu" name="adresa" class="registerinfo" id="registeradress" required>
+                        <br/>
+                        <label for="telefon" class="registerinfo"><b>Telefon</b></label> <br/>
+                        <input type="text" placeholder="Unesite telefon" name="telefon" class="registerinfo" id="registerphone" required>
+                        <br/>
+                        <label for="zanimanje" class="registerinfo"><b>Zanimanje</b></label> <br/>
+                        <input type="text" placeholder="Unesite zanimanje" name="zanimanje" class="registerinfo" id="registeroccupation" required>
+                      </div>
+                    </div>
+                    <button type="submit" class="glavnodugme" id="regsubmit">Registruj se</button>
+                    <br/>
+                  </div>
+    
+                  <div class="container" style="background-color:#f1f1f1; width:100%; bottom: 0;"> 
+                    <button type="button" onclick="document.getElementById('register-modal-popup').style.display='none'" class="cancelbtn">Otkaži</button>
+                  </div>
+                </form>
+              </div>
+
             </div>
         </nav>
     </header>
@@ -108,9 +154,55 @@
             <td>Bulevar Oslobođenja 101, Novi Sad, 21000</td>
             <td>061123123</td>
             <td>Softverski inženjer</td>
-            <td><button type="button" class="edit-btn">Izmeni</button></td>
-            <td><button type="button" class="del-btn">Obriši</button></td>
+            <td><button type="button" class="edit-btn" onclick="showEditDialog1()">Izmeni</button></td>
+
+            <div id="edituser1" class="modal edit-entity">
+              <div class="modal-content editting">
+                <span class="close" onclick="hideEditDialog1()">&times;</span>
+                <h2>Izmena korisnika</h2>
+                  <div class="col">
+                    <label for="name">Ime:</label>
+                    <input type="text" id="name" name="name" value="Petar"><br>
+                    <label for="lastname">Prezime:</label>
+                    <input type="text" id="lastname" name="lastname" value="Pavlović"><br>
+                    <label for="username">Korisničko ime:</label>
+                    <input type="text" id="username" name="username" value="petar_p"><br>
+                    <label for="password">Lozinka:</label>
+                    <input type="text" id="password" name="password" value="novapetar321"><br>
+                    <label for="email">Email:</label>
+                    <input type="email" id="email" name="email" value="petar.pavlovic@example.com"><br>
+                    <label for="birthdate">Datum rođenja:</label>
+                    <input type="date" id="birthdate" name="birthdate" value="1994-10-22"><br>
+                    <label for="adress">Adresa:</label>
+                    <input type="text" id="adress" name="adress" value="Bulevar Oslobođenja 101, Novi Sad, 21000"><br>
+                    <label for="phone">Telefon:</label>
+                    <input type="tel" id="phone" name="phone" value="061123123"><br>
+                    <label for="occupation">Zanimanje:</label>
+                    <input type="text" id="occupation" name="occupation" value="Softverski inženjer"><br>
+
+                  <button type="submit" class="confirmbtn" onclick="editItem(1)" style="align-self: center;">Izmeni </button>
+                  <button type="button" class="cancelbtn" onclick="hideEditDialog1()">Otkaži</button>
+            </div>
+              </div>
+              
+            </div>
+
+            <td>
+              <button type="button" class="del-btn" onclick="showDeleteConfirmationUser()">Obriši</button>
+            </td>
+
           </tr>
+          <div id="deleteConfirmationModal-user" class="modal">
+            <div class="modal-content">
+              <span class="close" onclick="hideDeleteConfirmationUser()">&times;</span>
+              <h2>Da li ste sigurni da želite da obrišete ovog korisnika?</h2>
+              <p>Ova radnja ne može biti poništena.</p>
+              <button type="button" class="confirmbtn" onclick="deleteItem()">Da, obriši <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash3-fill" viewBox="0 0 16 16">
+                <path d="M11 1.5v1h3.5a.5.5 0 0 1 0 1h-.538l-.853 10.66A2 2 0 0 1 11.115 16h-6.23a2 2 0 0 1-1.994-1.84L2.038 3.5H1.5a.5.5 0 0 1 0-1H5v-1A1.5 1.5 0 0 1 6.5 0h3A1.5 1.5 0 0 1 11 1.5m-5 0v1h4v-1a.5.5 0 0 0-.5-.5h-3a.5.5 0 0 0-.5.5M4.5 5.029l.5 8.5a.5.5 0 1 0 .998-.06l-.5-8.5a.5.5 0 1 0-.998.06m6.53-.528a.5.5 0 0 0-.528.47l-.5 8.5a.5.5 0 0 0 .998.058l.5-8.5a.5.5 0 0 0-.47-.528M8 4.5a.5.5 0 0 0-.5.5v8.5a.5.5 0 0 0 1 0V5a.5.5 0 0 0-.5-.5"/>
+              </svg></button>
+              <button type="button" class="cancelbtn" onclick="hideDeleteConfirmationUser()">Otkaži</button>
+            </div>
+          </div>
           <tr>
             <td>2</td>
             <td>Jovana</td>
@@ -121,8 +213,40 @@
             <td>Nikole Pašića 15, Zrenjanin, 23000</td>
             <td>062987987</td>
             <td>Grafički dizajner</td>
-            <td><button type="button" class="edit-btn">Izmeni</button></td>
-            <td><button type="button" class="del-btn">Obriši</button></td>
+            <td><button type="button" class="edit-btn" onclick="showEditDialog2()">Izmeni</button></td>
+
+            <div id="edituser2" class="modal edit-entity">
+              <div class="modal-content editting">
+                <span class="close" onclick="hideEditDialog2()">&times;</span>
+                <h2>Izmena korisnika</h2>
+                  <div class="col">
+                    <label for="name">Ime:</label>
+                    <input type="text" id="name" name="name" value="Jovana"><br>
+                    <label for="lastname">Prezime:</label>
+                    <input type="text" id="lastname" name="lastname" value="Janković"><br>
+                    <label for="username">Korisničko ime:</label>
+                    <input type="text" id="username" name="username" value="jovana_j"><br>
+                    <label for="password">Lozinka:</label>
+                    <input type="text" id="password" name="password" value="novajovana321"><br>
+                    <label for="email">Email:</label>
+                    <input type="email" id="email" name="email" value="jovana.jankovic@example.com"><br>
+                    <label for="birthdate">Datum rođenja:</label>
+                    <input type="date" id="birthdate" name="birthdate" value="1982-05-05"><br>
+                    <label for="adress">Adresa:</label>
+                    <input type="text" id="adress" name="adress" value="Nikole Pašića 15, Zrenjanin, 23000"><br>
+                    <label for="phone">Telefon:</label>
+                    <input type="tel" id="phone" name="phone" value="062987987"><br>
+                    <label for="occupation">Zanimanje:</label>
+                    <input type="text" id="occupation" name="occupation" value="Grafički dizajner"><br>
+
+                    <button type="submit" class="confirmbtn" onclick="editItem(1)" style="align-self: center;">Izmeni </button>
+                    <button type="button" class="cancelbtn" onclick="hideEditDialog2()" style="align-self: center;">Otkaži</button>
+            </div>
+              </div>
+              
+            </div>
+
+            <td><button type="button" class="del-btn" onclick="showDeleteConfirmationUser()">Obriši</button></td>
           </tr>
           <tr>
             <td>3</td>
@@ -134,27 +258,61 @@
             <td>Knez Mihailova 22, Beograd, 11000</td>
             <td>063456456</td>
             <td>Projektni menadžer</td>
-            <td><button type="button" class="edit-btn">Izmeni</button></td>
-            <td><button type="button" class="del-btn">Obriši</button></td>
+            <td><button type="button" class="edit-btn" onclick="showEditDialog3()">Izmeni</button></td>
+
+            <div id="edituser3" class="modal edit-entity">
+              <div class="modal-content editting">
+                <span class="close" onclick="hideEditDialog3()">&times;</span>
+                <h2>Izmena korisnika</h2>
+                  <div class="col">
+                    <label for="name">Ime:</label>
+                    <input type="text" id="name" name="name" value="Marko"><br>
+                    <label for="lastname">Prezime:</label>
+                    <input type="text" id="lastname" name="lastname" value="Marić"><br>
+                    <label for="username">Korisničko ime:</label>
+                    <input type="text" id="username" name="username" value="markom"><br>
+                    <label for="password">Lozinka:</label>
+                    <input type="text" id="password" name="password" value="novamarko321"><br>
+                    <label for="email">Email:</label>
+                    <input type="email" id="email" name="email" value="marko.maric@example.com"><br>
+                    <label for="birthdate">Datum rođenja:</label>
+                    <input type="date" id="birthdate" name="birthdate" value="1990-09-17"><br>
+                    <label for="adress">Adresa:</label>
+                    <input type="text" id="adress" name="adress" value="Knez Mihailova 22, Beograd, 11000"><br>
+                    <label for="phone">Telefon:</label>
+                    <input type="tel" id="phone" name="phone" value="063456456"><br>
+                    <label for="occupation">Zanimanje:</label>
+                    <input type="text" id="occupation" name="occupation" value="Projektni menadžer"><br>
+                    
+                    <button type="submit" class="confirmbtn" onclick="editItem(3)" style="align-self: center;">Izmeni </button>
+                    <button type="button" class="cancelbtn" onclick="hideEditDialog3()" style="align-self: center;">Otkaži</button>
+            </div>
+              </div>
+              
+            </div>
+
+            <td><button type="button" class="del-btn" onclick="showDeleteConfirmationUser()">Obriši</button></td>
+
+            
           </tr>
         </tbody>
       </table>
 
       <!-- The core Firebase JS SDK is always required and must be listed first -->
-    <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-app.js"></script>
+    <!-- <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-app.js"></script> -->
 
     <!-- TODO: Add SDKs for Firebase products that you want to use
         https://firebase.google.com/docs/web/setup#available-libraries -->
 
     <!-- Firebase Authentication -->
-    <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-auth.js"></script>
+    <!-- <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-auth.js"></script> -->
 
     <!-- Firebase Database -->
-    <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-database.js"></script>
+    <!-- <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-database.js"></script> -->
 
     <!-- Your custom script -->
-    <script src="../main page/script.js"></script>  
-    <script src="admin.js"></script>
+    <script src="../main page/script.js" defer></script>  
+    <script src="admin.js" defer></script>
 
     </body>
 </html>

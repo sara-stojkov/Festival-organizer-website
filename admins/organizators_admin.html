@@ -48,7 +48,7 @@
                 <span onclick="document.getElementById('login-modal-popup').style.display='none'"
               class="close" title="Close Modal">&times;</span>
               
-                <form class="modal-content animate" action="/">
+                <form class="modal-content animate" id="loginForm">
                   <div class="imgcontainer">
                     <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ2yiB7PF4xPNw8Xnvl9sS2tXBdBvDZvQyvJZRnm8pVCQ&s" alt="Avatar" class="avatar">
                   </div>
@@ -62,20 +62,64 @@
                     <br/>
                     <button type="submit" class="glavnodugme">Prijava</button>
                     <br/>
-                    <label>
-                      <input type="checkbox" checked="checked" name="remember"> Zapamti me
-                    </label>
                   </div>
               
                   <div class="container" style="background-color:#f1f1f1; width:100%; bottom: 0;"> 
                     <button type="button" onclick="document.getElementById('login-modal-popup').style.display='none'" class="cancelbtn">Cancel</button>
-                    <span class="psw" style="align-self: right;">Zaboravljena <a href="#">lozinka?</a></span>
                   </div>
                 </form>
               </div>
               <form>
-                <button class="btn" id="registerbtn" type="button" role="button">Registracija</button>
-              </form >
+                <button class="btn btn-outline-success" id="registerbtn" type="button" role="button" onclick="document.getElementById('register-modal-popup').style.display='block'">Registracija</button>            </form >
+              
+              <div id="register-modal-popup" class="modal">
+                <span onclick="document.getElementById('register-modal-popup').style.display='none'"
+              class="close" title="Close Modal">&times;</span>
+              
+                <form class="modal-content animate" action="" id="regform">
+              
+                  <div class="container" id="registerinfo">
+                    <h3 id="regtitle">Dobrodošli! Unesite svoje podatke:</h3>
+                    <br/>
+                    <div class="row">
+                      <div class="column-register">
+                        <label for="uname" class="registerinfo"><b>Korisničko ime</b></label> <br/>
+                        <input type="text" placeholder="Unesite svoj username" name="uname" class="registerinfo" id="registerusername" required>
+                        <br/>
+                        <label for="psw" class="registerinfo"><b>Lozinka</b></label><br/>
+                        <input type="password" placeholder="Unesite lozinku" name="psw" class="registerinfo" id="registerpassword" required>
+                        <br/>
+                        <label for="firstname" class="registerinfo"><b>Ime</b></label> <br/>
+                        <input type="text" placeholder="Unesite ime" name="firstname" class="registerinfo" id="registerfirstname" required>
+                        <br/>
+                        <label for="lastname" class="registerinfo"><b>Prezime</b></label> <br/>
+                        <input type="text" placeholder="Unesite prezime" name="lastname" class="registerinfo" id="registerlastname" required>
+                        <br/>
+                        <label for="email" class="registerinfo"><b>Email</b></label> <br/> 
+                        <input type="email" placeholder="Unesite email" name="email" class="registerinfo" id="registeremail" required>
+                      </div>
+                      <div class="column-register">
+                        <label for="datumrodjenja" class="registerinfo"><b>Datum rođenja</b></label> <br/>
+                        <input type="date" placeholder="Unesite datum rođenja" name="datumrodjenja" class="registerinfo" id="registerbirthdate" required>
+                        <br/>
+                        <label for="adresa" class="registerinfo"><b>Adresa</b></label> <br/>
+                        <input type="text" placeholder="Unesite adresu" name="adresa" class="registerinfo" id="registeradress" required>
+                        <br/>
+                        <label for="telefon" class="registerinfo"><b>Telefon</b></label> <br/>
+                        <input type="text" placeholder="Unesite telefon" name="telefon" class="registerinfo" id="registerphone" required>
+                        <br/>
+                        <label for="zanimanje" class="registerinfo"><b>Zanimanje</b></label> <br/>
+                        <input type="text" placeholder="Unesite zanimanje" name="zanimanje" class="registerinfo" id="registeroccupation" required>
+                      </div>
+                    </div>
+                    <button type="submit" class="glavnodugme" id="regsubmit">Registruj se</button>
+                    <br/>
+                  </div>
+    
+                  <div class="container" style="background-color:#f1f1f1; width:100%; bottom: 0;"> 
+                    <button type="button" onclick="document.getElementById('register-modal-popup').style.display='none'" class="cancelbtn">Otkaži</button>
+                  </div>
+                </form>
             </div>
         </nav>
     </header>

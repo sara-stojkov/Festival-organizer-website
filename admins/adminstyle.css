@@ -50,7 +50,7 @@ table, th, td {
     margin-top: 0;
     width: 75%;
     height: auto;
-    overflow: auto; /* Add this line */
+    overflow: auto; 
 }
 
 .small-btn {
