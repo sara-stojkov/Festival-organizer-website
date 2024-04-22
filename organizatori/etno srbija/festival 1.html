@@ -47,7 +47,7 @@
                 <span onclick="document.getElementById('login-modal-popup').style.display='none'"
               class="close" title="Close Modal">&times;</span>
               
-                <form class="modal-content animate" action="/">
+                <form class="modal-content animate" id="loginForm">
                   <div class="imgcontainer">
                     <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ2yiB7PF4xPNw8Xnvl9sS2tXBdBvDZvQyvJZRnm8pVCQ&s" alt="Avatar" class="avatar">
                   </div>
@@ -61,14 +61,10 @@
                     <br/>
                     <button type="submit" class="glavnodugme">Prijava</button>
                     <br/>
-                    <label>
-                      <input type="checkbox" checked="checked" name="remember"> Zapamti me
-                    </label>
                   </div>
               
                   <div class="container" style="background-color:#f1f1f1; width:100%; bottom: 0;"> 
                     <button type="button" onclick="document.getElementById('login-modal-popup').style.display='none'" class="cancelbtn">Cancel</button>
-                    <span class="psw" style="align-self: right;">Zaboravljena <a href="#">lozinka?</a></span>
                   </div>
                 </form>
               </div>
