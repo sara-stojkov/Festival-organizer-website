@@ -37,8 +37,8 @@
                 Admin stranice
               </a>
               <ul class="dropdown-menu">
-                <li><a class="dropdown-item" href="../admins/organizators_admin.html">Rukovanje pojedinačnim organizatorima</a></li>
-                <li><a class="dropdown-item" href="#">Rukovanje pojedinačnim korisnicima</a></li>
+                <li><a class="dropdown-item" href="../../admins/organizators_admin.html">Rukovanje pojedinačnim organizatorima</a></li>
+                <li><a class="dropdown-item" href="../../admins/user_admin.html">Rukovanje pojedinačnim korisnicima</a></li>
               </ul>
             </li>
           </ul>
@@ -48,7 +48,7 @@
               <span onclick="document.getElementById('login-modal-popup').style.display='none'"
               class="close" title="Close Modal">&times;</span>
             
-              <form class="modal-content animate">
+              <form class="modal-content animate" id="loginForm">
                 <div class="imgcontainer">
                   <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ2yiB7PF4xPNw8Xnvl9sS2tXBdBvDZvQyvJZRnm8pVCQ&s" alt="Avatar" class="avatar">
                 </div>
@@ -153,11 +153,11 @@
             <label class="searchqueries" id="type-select">
               <select name="dropdown-type" class="searchqueries" >
                 <option value="">-Tip festivala-</option>
-                <option value="option1">Muzički</option> 
-                <option value="option2">Umetnički</option>
-                <option value="option3">Filmski</option>
-                <option value="option4">Gastronomski</option>
-                <option value="option5">Edukativni</option>
+                <option value="Muzički">Muzički</option> 
+                <option value="Umetnički">Umetnički</option>
+                <option value="Filmski">Filmski</option>
+                <option value="Gastronomski">Gastronomski</option>
+                <option value="Edukativni">Edukativni</option>
               </select>
               <input type="checkbox" name="bytype" value="search" > Pretraži po tipu
             </label>
