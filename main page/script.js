@@ -154,8 +154,8 @@ function searchPage() {
   // If the search query is empty, exit the function
   if (searchQuery === '') return;
   
-  // Find and highlight matching text
-  var elements = document.querySelectorAll('#content *');
+  // Find and highlight matching text, excluding button elements
+  var elements = document.querySelectorAll('.content');
   elements.forEach(function(element) {
       highlightTextInElement(element, searchQuery);
   });
@@ -172,24 +172,12 @@ function highlightTextInElement(element, searchQuery) {
               var beforeText = node.nodeValue.substring(0, index);
               var matchedText = node.nodeValue.substring(index, index + searchQuery.length);
               var afterText = node.nodeValue.substring(index + searchQuery.length);
-              
-              // Find the start and end of the matched word
-              var startOfWord = beforeText.lastIndexOf(' ') + 1;
-              var endOfWord = index + searchQuery.length;
-              
-              // Trim spaces before and after the matched word
-              beforeText = beforeText.substring(0, startOfWord);
-              afterText = afterText.trimLeft();
-              
-              // Trim spaces at the end of beforeText and start of afterText
-              beforeText = beforeText.trimRight();
-              afterText = afterText.trimLeft();
-              
+
               // Create a new span element to wrap the matching text
               var span = document.createElement('span');
               span.classList.add('highlight');
               span.appendChild(document.createTextNode(matchedText));
-              
+
               // Insert the highlighted text at the correct position
               if (beforeText) {
                   var beforeTextNode = document.createTextNode(beforeText);
@@ -202,7 +190,7 @@ function highlightTextInElement(element, searchQuery) {
               text = node.nodeValue.toLowerCase();
               index = text.indexOf(searchQuery);
           }
-      } else if (node.nodeType === Node.ELEMENT_NODE && node.childNodes.length > 0) {
+      } else if (node.nodeType === Node.ELEMENT_NODE && node.childNodes.length > 0 && node.tagName.toLowerCase() !== 'button') {
           for (var i = 0; i < node.childNodes.length; i++) {
               nodesToProcess.push(node.childNodes[i]);
           }
