@@ -713,3 +713,16 @@ ul.navbar-nav{
     border: 0.1vw solid darkgray;
 
 }
+
+.confirmbtn{
+    width: 70%;
+    background-color: orchid;
+    border-radius: 1vh;
+    color: white;
+    padding: 1vw;
+    margin-left: 2vw;
+    border: none;
+    cursor: pointer;
+    font-size: 1.7vw;
+}
+

@@ -200,3 +200,24 @@ document.getElementById("searchbar").addEventListener("keypress", function(event
 });
 
 
+// Function to add classes based on screen width
+function addClassesBasedOnScreenWidth() {
+  // Get the screen width
+  var screenWidth = window.innerWidth || document.documentElement.clientWidth || document.body.clientWidth;
+
+  // Check if the screen width is below a certain threshold
+  if (screenWidth <= 768) { // Adjust this threshold as needed
+    // Add classes to the elements with ids firstItem and secondItem
+    document.getElementById("logo-naziv").classList.add("row");
+  } else {
+    // Remove classes if not needed
+    document.getElementById("logo-naziv").classList.remove("row");
+  }
+}
+
+// Call the function initially to set classes based on initial screen width
+addClassesBasedOnScreenWidth();
+
+// Listen for window resize event to update classes if needed
+window.addEventListener('resize', addClassesBasedOnScreenWidth);
+
