@@ -53,3 +53,37 @@ const firebaseConfig = {
             .catch(function(error) {
                 console.error("Error loading data:", error);
             }));
+
+
+function showDeleteConfirmation() {
+    document.getElementById('deleteConfirmationModal').style.display = 'block';
+    }
+
+    function hideDeleteConfirmation() {
+    document.getElementById('deleteConfirmationModal').style.display = 'none';
+    }
+
+
+function showEditDialog1() {
+    document.getElementById('edituser1').style.display = 'block';
+    }
+
+    function hideEditDialog1() {
+    document.getElementById('edituser1').style.display = 'none';
+    }
+
+function showEditDialog11() {
+    document.getElementById('editorganizer1').style.display = 'block';
+    }
+
+    function hideEditDialog11() {
+    document.getElementById('editorganizer1').style.display = 'none';
+    }
+
+function showEditDialog12() {
+    document.getElementById('editorganizer2').style.display = 'block';
+    }
+
+    function hideEditDialog12() {
+    document.getElementById('editorganizer2').style.display = 'none';
+    }

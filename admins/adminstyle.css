@@ -30,3 +30,37 @@ table, th, td {
     border: 1px solid black;
     text-align: justify;
   }
+
+.modal-content#deleteDialog {
+    height: 50%;
+    padding: 4vh;
+    margin-top: 0;
+}
+
+.del-btn:hover {
+    background-color: darkred;
+}
+
+.confirmbtn{
+    background-color: green;
+}
+
+.modal-content, .editting {
+    padding: 2vh;
+    margin-top: 0;
+    width: 75%;
+    height: auto;
+    overflow: auto; /* Add this line */
+}
+
+.small-btn {
+    color: white;
+    padding: 1vh;
+    margin: 1vh;
+    border-radius: 1vh;
+    width: 40%;
+}
+
+input{
+    width: auto;
+}
