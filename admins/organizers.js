@@ -36,51 +36,60 @@ function createOrganizerRow(organizerId, organizerData) {
         <td><a href="${organizerData.logo}">${organizerData.logo}<a> </td>
         <td>${organizerData.kontaktTelefon}</td>
         <td>${organizerData.email}</td>
-        <td><button type="button" class="edit-btn" onclick="showEditUserDialog('${organizerId}')">Izmeni</button></td> 
+        <td><button type="button" class="edit-btn" onclick="showEditOrganizerDialog('${organizerId}')">Izmeni</button></td> 
         <td><button type="button" class="del-btn" onclick="showDeleteConfirmationOrganizer('${organizerId}')">Obriši</button></td>
     `;
     return newRow;
 }
   
-  function createEditModalOrganizer(organizerId, organizerData) {
-    const editModal = document.createElement('div');
-    editModal.classList.add('modal');
-    editModal.classList.add('edit-organizer-modal');
-    const editModalContent = document.createElement('div');
-    editModalContent.classList.add('modal-content');
-    editModalContent.classList.add('edit-organizer-content'); 
-    editModal.id = `EditDialog-organizer-${organizerId}`;
-    editModal.style.display = 'none';
-    editModalContent.innerHTML = `
-        <span class="close" onclick="hideEditUserDialog('${organizerId}')">&times;</span>
-        <h2>Izmena korisnika</h2>
-        <div class="row">
-          <div class="col">
-            <label for="name">Naziv:</label>
-            <input type="text" id="edit-name-${organizerId}" name="name" value="${organizerData.naziv || ''}"><br>
-            <label for="lastname">Adresa:</label>
-            <input type="text" id="edit-lastname-${organizerId}" name="lastname" value="${organizerData.adresa || ''}"><br>
-            <label for="username">Godina osnivanja:</label>
-            <input type="text" id="edit-username-${organizerId}" name="username" value="${organizerData.godinaOsnivanja || ''}"><br>
-            <label for="password">Link do logoa:</label>
-            <input type="text" id="edit-password-${organizerId}" name="password" value="${organizerData.logo || ''}"><br>
-            <label for="email">Kontakt telefon:</label>
-            <input type="email" id="edit-email-${organizerId}" name="email" value="${organizerData.kontaktTelefon || ''}"><br>
-            <label for="birthdate">Email:</label>
-            <input type="email" id="edit-email-${organizerId}" name="email" value="${organizerData.email || ''}"><br>
-          </div>
+function createEditModalOrganizer(organizerId, organizerData) {
+  const editModal = document.createElement('div');
+  editModal.classList.add('modal');
+  editModal.classList.add('edit-organizer-modal');
+  const editModalContent = document.createElement('div');
+  editModalContent.classList.add('modal-content');
+  editModalContent.classList.add('edit-organizer-content'); 
+  editModal.id = `EditDialog-organizer-${organizerId}`;
+  editModal.style.display = 'none';
 
-          <div class="col" id="festivals-organizer-${organizerId}>
-            
-          </div>
-          <button type="button" class="confirmbtn" onclick="editUser('${organizerId}')" style="align-self: center;">Izmeni</button>
-          <button type="button" class="cancelbtn" onclick="hideEditUserDialog('${organizerId}')">Otkaži</button>
+  // let festivalsHTML = '';
+
+  // if (organizerData.festivali) {
+  //   Object.keys(organizerData.festivali).forEach(festivalId => {
+  //     const festivalData = organizerData.festivali[festivalId];
+  //     festivalsHTML += `<div class="row"><h3>${festivalData.naziv}</h3></div>`;
+  //   });
+  // }
+
+  editModalContent.innerHTML = `
+      <span class="close" onclick="hideEditOrganizerDialog('${organizerId}')">&times;</span>
+      <h2>Izmena organizatora</h2>
+      <div class="row">
+        <div class="col">
+          <label for="name">Naziv:</label>
+          <input type="text" id="edit-name-${organizerId}" name="name" value="${organizerData.naziv || ''}"><br>
+          <label for="address">Adresa:</label>
+          <input type="text" id="edit-address-${organizerId}" name="address" value="${organizerData.adresa || ''}"><br>
+          <label for="year">Godina osnivanja:</label>
+          <input type="number" id="edit-year-${organizerId}" name="year" value="${organizerData.godinaOsnivanja || ''}"><br>
+          <label for="logo">Link do logoa:</label>
+          <input type="text" id="edit-logo-${organizerId}" name="logo" value="${organizerData.logo || ''}"><br>
+          <label for="phone">Kontakt telefon:</label>
+          <input type="tel" id="edit-phone-${organizerId}" name="phone" value="${organizerData.kontaktTelefon || ''}"><br>
+          <label for="birthdate">Email:</label>
+          <input type="email" id="edit-email-${organizerId}" name="email" value="${organizerData.email || ''}"><br>
         </div>
-    `;
-    editModal.appendChild(editModalContent);
-    document.body.appendChild(editModal);
-  }
 
+        <div class="col" id="festivals-organizer-${organizerId}">
+        </div>
+        <button type="button" class="confirmbtn" onclick="editOrganizer('${organizerId}')" style="align-self: center;">Izmeni</button>
+        <button type="button" class="cancelbtn" onclick="hideEditOrganizerDialog('${organizerId}')">Otkaži</button>
+      </div>
+  `;
+  
+  editModal.appendChild(editModalContent);
+  document.body.appendChild(editModal);
+}
 
 
 loadOrganizers();
@@ -95,35 +104,89 @@ function hideDeleteConfirmationOrganizer() {
   document.getElementById('deleteConfirmationModal-organizer').style.display = 'none';
 }
   
+// function deleteOrganizer() {
+//   var organizerId = document.getElementById('deleteConfirmationModal-organizer').getAttribute('data-organizer-id');
+//   fetch(`https://hasta-la-fiesta-default-rtdb.europe-west1.firebasedatabase.app/organizatoriFestivala/${organizerId}.json`, {
+//     method: 'DELETE'
+//   })
+//   .then(response => {
+//     if (response.ok) {
+//       alert('Uspešno ste obrisali organizatora festivala!');
+//       location.reload();
+//     } else {
+//       throw new Error('Neuspelo brisanje organizatora. Molimo pokušajte ponovo.');
+//     }
+//   })
+//   .catch(error => {
+//     alert('Došlo je do greške pri brisanju: ' + error.message);
+//     console.error('Error deleting organizer:', error);
+//   });
+//   hideDeleteConfirmationOrganizer();
+// }
+
 function deleteOrganizer() {
   var organizerId = document.getElementById('deleteConfirmationModal-organizer').getAttribute('data-organizer-id');
-  fetch(`https://hasta-la-fiesta-default-rtdb.europe-west1.firebasedatabase.app/organizatoriFesivala/${organizerId}.json`, {
-    method: 'DELETE'
-  })
-  .then(response => {
-    if (response.ok) {
-      alert('Uspešno ste obrisali organizatora festivala!');
-      location.reload();
-    } else {
-      throw new Error('Neuspelo brisanje organizatora. Molimo pokušajte ponovo.');
-    }
-  })
-  .catch(error => {
-    alert('Došlo je do greške pri brisanju: ' + error.message);
-    console.error('Error deleting user:', error);
-  });
-  hideDeleteConfirmationUser();
+
+  fetch(`https://hasta-la-fiesta-default-rtdb.europe-west1.firebasedatabase.app/organizatoriFestivala/${organizerId}/festivali.json`)
+    .then(response => response.json())
+    .then(festivalsData => {
+      const savedFestivalData = festivalsData;
+
+      fetch(`https://hasta-la-fiesta-default-rtdb.europe-west1.firebasedatabase.app/organizatoriFestivala/${organizerId}.json`, {
+        method: 'DELETE'
+      })
+        .then(response => {
+          if (response.ok) {
+            alert('Uspešno ste obrisali organizatora festivala!');
+              const savedFestivalKey = savedFestivalData.festivali
+              fetch(`https://hasta-la-fiesta-default-rtdb.europe-west1.firebasedatabase.app/organizatoriFestivala//festivali/${savedFestivalKey}.json`, {
+                method: 'DELETE'
+              })
+                .then(() => {
+                  console.log('Uspešno obrisani festivali ovog organizatora.');
+                })
+                .catch(error => {
+                  console.error('Greška pri brisanju festivala.');
+                });
+            ;
+
+            location.reload();
+          } else {
+            throw new Error('Neuspelo brisanje organizatora. Molimo pokušajte ponovo.');
+          }
+        })
+        .catch(error => {
+          alert('Došlo je do greške pri brisanju: ' + error.message);
+          console.error('Error deleting organizer:', error);
+        });
+    })
+    .catch(error => {
+      alert('Došlo je do greške pri dobavljanju podataka o festivalima: ' + error.message);
+      console.error('Error fetching festivals data:', error);
+    });
+
+  hideDeleteConfirmationOrganizer();
 }
 
+
+function showEditOrganizerDialog(organizerId) {
+  document.getElementById(`EditDialog-organizer-${organizerId}`).style.display = 'block';
+}
+
+function hideEditOrganizerDialog(organizerId) {
+  document.getElementById(`EditDialog-organizer-${organizerId}`).style.display = 'none';
+}
+
+
 function editOrganizer(organizerId) {
-  var updatedUserData = {
-    ime: document.getElementById('name').value,
-    prezime: document.getElementById('address').value,
-    korisnickoIme: document.getElementById('year').value,
-    lozinka: document.getElementById('logo').value,
-    email: document.getElementById('phone').value,
-    datumRodjenja: document.getElementById('email').value,
-  //  brisanje dodavanje festivala
+  var updatedOrganizerData = {
+    naziv: document.getElementById(`edit-name-${organizerId}`).value,
+    adresa: document.getElementById(`edit-address-${organizerId}`).value,
+    godinaOsnivanja: document.getElementById(`edit-year-${organizerId}`).value,
+    logo: document.getElementById(`edit-logo-${organizerId}`).value,
+    kontaktTelefon: document.getElementById(`edit-phone-${organizerId}`).value,
+    email: document.getElementById(`edit-email-${organizerId}`).value,
+  
   };
 
   fetch(`https://hasta-la-fiesta-default-rtdb.europe-west1.firebasedatabase.app/organizatoriFestivala/${organizerId}.json`, {
@@ -131,11 +194,11 @@ function editOrganizer(organizerId) {
     headers: {
       'Content-Type': 'application/json'
     },
-    body: JSON.stringify(updatedUserData)
+    body: JSON.stringify(updatedOrganizerData)
   })
   .then(response => {
     if (response.ok) {
-      alert('Uspešno ste izmenili podatke organizatora festiva;a!');
+      alert('Uspešno ste izmenili podatke organizatora festivala!');
       location.reload();
     } else {
       throw new Error('Neuspela izmena podataka organizatora. Molimo pokušajte ponovo.');
@@ -143,7 +206,7 @@ function editOrganizer(organizerId) {
   })
   .catch(error => {
     alert('Došlo je do greške pri izmeni podataka: ' + error.message);
-    console.error('Error editing user:', error);
+    console.error('Error editing organizer:', error);
   });
 }
 
