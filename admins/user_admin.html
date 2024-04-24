@@ -144,38 +144,6 @@
         </thead>
         <tbody id="all-users">
 
-          <div id="edit-modal-container" class="modal">
-          </div>
-          
-            <div id="edituser1" class="modal edit-entity">
-              <div class="modal-content editting">
-                <span class="close" onclick="hideEditDialog()">&times;</span>
-                <h2>Izmena korisnika</h2>
-                  <div class="col">
-                    <label for="name">Ime:</label>
-                    <input type="text" id="name" name="name" value="Petar"><br>
-                    <label for="lastname">Prezime:</label>
-                    <input type="text" id="lastname" name="lastname" value="Pavlović"><br>
-                    <label for="username">Korisničko ime:</label>
-                    <input type="text" id="username" name="username" value="petar_p"><br>
-                    <label for="password">Lozinka:</label>
-                    <input type="text" id="password" name="password" value="novapetar321"><br>
-                    <label for="email">Email:</label>
-                    <input type="email" id="email" name="email" value="petar.pavlovic@example.com"><br>
-                    <label for="birthdate">Datum rođenja:</label>
-                    <input type="date" id="birthdate" name="birthdate" value="1994-10-22"><br>
-                    <label for="adress">Adresa:</label>
-                    <input type="text" id="adress" name="adress" value="Bulevar Oslobođenja 101, Novi Sad, 21000"><br>
-                    <label for="phone">Telefon:</label>
-                    <input type="tel" id="phone" name="phone" value="061123123"><br>
-                    <label for="occupation">Zanimanje:</label>
-                    <input type="text" id="occupation" name="occupation" value="Softverski inženjer"><br>
-
-                    <button type="submit" class="confirmbtn" onclick="editUser()" style="align-self: center;">Izmeni </button>
-                    <button type="button" class="cancelbtn" onclick="hideEditDialog()">Otkaži</button>
-                  </div>
-            </div>
-          </div>
           <div id="deleteConfirmationModal-user" class="modal delete-confirmation">
             <div class="modal-content delete-content">
               <span class="close" onclick="hideDeleteConfirmationUser()">&times;</span>
@@ -188,9 +156,6 @@
             </div>
           </div>
           
-        
-
-
             
         </tbody>
       </table>
