@@ -128,8 +128,7 @@
     <table id="tabela_organizatora" cellpadding="1vw" border="2" style="margin-bottom: 3vw;"> 
       <thead>
         <tr>
-          <th>ID</th>
-          <th>Ime organizatora</th>
+          <th>Naziv organizatora</th>
           <th>Adresa</th>
           <th>Godina osnivanja</th>
           <th>Link do logoa</th>
@@ -139,16 +138,8 @@
           <th>Obriši</th>
         </tr>
       </thead>
-      <tbody id="all-organizators">
-        <tr>
-          <td>1</td>
-          <td>BeoArt Fest</td>
-          <td>Knez Mihailova 48, Beograd, 11000</td>
-          <td>2015</td>
-          <td>https://i.imgur.com/OV15WM6.jpeg</td>
-          <td>011/3042-568</td>
-          <td><a href=mailto:"kontakt@beoartfest.rs">kontakt@beoartfest.rs</a></td>
-          <td><button type="button" class="edit-btn" onclick="showEditDialog11()">Izmeni</button></td>
+      <tbody id="all-organizers">
+          
 
           <div id="editorganizer1" class="modal edit-entity">
             <div class="modal-content editting">
@@ -207,126 +198,21 @@
             </div>
           </div>
 
-          <td>
-            <button type="button" class="del-btn" onclick="showDeleteConfirmation()">Obriši</button>
-          </td>
-
-          <div id="deleteConfirmationModal" class="modal">
-            <div class="modal-content" id="deleteDialog">
-              <span class="close" onclick="hideDeleteConfirmation()">&times;</span>
-              <h2>Da li ste sigurni da želite da obrišete ovog organizatora?</h2>
+          <div id="deleteConfirmationModal-organizer" class="modal">
+            <div class="modal-content delete-content">
+              <span class="close" onclick="hideDeleteConfirmationOrganizer()">&times;</span>
+              <h2>Da li ste sigurni da želite da obrišete ovog organizatora Festivala?</h2>
               <p>Ova radnja ne može biti poništena.</p>
-              <button type="button" class="confirmbtn" onclick="deleteItem()">Da, obriši <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash3-fill" viewBox="0 0 16 16">
+              <button type="button" class="confirmbtn" onclick="deleteOrganizer(userId)">Da, obriši <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash3-fill" viewBox="0 0 16 16">
                 <path d="M11 1.5v1h3.5a.5.5 0 0 1 0 1h-.538l-.853 10.66A2 2 0 0 1 11.115 16h-6.23a2 2 0 0 1-1.994-1.84L2.038 3.5H1.5a.5.5 0 0 1 0-1H5v-1A1.5 1.5 0 0 1 6.5 0h3A1.5 1.5 0 0 1 11 1.5m-5 0v1h4v-1a.5.5 0 0 0-.5-.5h-3a.5.5 0 0 0-.5.5M4.5 5.029l.5 8.5a.5.5 0 1 0 .998-.06l-.5-8.5a.5.5 0 1 0-.998.06m6.53-.528a.5.5 0 0 0-.528.47l-.5 8.5a.5.5 0 0 0 .998.058l.5-8.5a.5.5 0 0 0-.47-.528M8 4.5a.5.5 0 0 0-.5.5v8.5a.5.5 0 0 0 1 0V5a.5.5 0 0 0-.5-.5"/>
               </svg></button>
-              <button type="button" class="cancelbtn" onclick="hideDeleteConfirmation()">Otkaži</button>
+              <button type="button" class="cancelbtn" onclick="hideDeleteConfirmationOrganizer()">Otkaži</button>
             </div>
-          </div>
-
-        </tr>
-        <tr>
-          <td>2</td>
-          <td>Etno Srbija</td>
-          <td>Vojvode Stepe 321, Beograd, 11000</td>
-          <td>2010</td>
-          <td>https://i.imgur.com/jsFrKCn.jpeg</td>
-          <td>011/4223-690</td>          
-          <td><a href=mailto:"info@etnosrbija.rs">info@etnosrbija.rs</a></td>
-          <td><button type="button" class="edit-btn" onclick="showEditDialog12()">Izmeni</button></td>
-
-          <div id="editorganizer2" class="modal edit-entity" >
-            <div class="modal-content editting">
-              <span class="close" onclick="hideEditDialog12()">&times;</span>
-              <h2>Izmena organizatora</h2>
-              <div class="row">
-                <div class="col">
-                  <label for="name">Ime organizatora:</label>
-                  <input type="text" id="name" name="name" value="Etno Srbija"><br>
-                  <label for="address">Adresa:</label>
-                  <input type="text" id="address" name="address" value="Vojvode Stepe 321, Beograd, 11000"><br>
-                  <label for="year">Godina osnivanja:</label>
-                  <input type="text" id="year" name="year" value="2010"><br>
-                  <label for="logo">Link do logoa:</label>
-                  <input type="text" id="logo" name="logo" value="https://i.imgur.com/jsFrKCn.jpeg"><br>
-                  <label for="phone">Kontakt telefon:</label>
-                  <input type="tel" id="phone" name="phone" value="011/4223-690"><br>
-                  <label for="email">Email:</label>
-                  <input type="email" id="email" name="email" value="info@etnosrbija.rs"><br>
-                </div>
-                <div class="col">
-                  <div class="row">
-                    <h3>Festival Grčkih Melodija</h3>
-                    <button type="button" class="edit-fest-btn small-btn"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-pencil-square" viewBox="0 0 16 16">
-                      <path d="M15.502 1.94a.5.5 0 0 1 0 .706L14.459 3.69l-2-2L13.502.646a.5.5 0 0 1 .707 0l1.293 1.293zm-1.75 2.456-2-2L4.939 9.21a.5.5 0 0 0-.121.196l-.805 2.414a.25.25 0 0 0 .316.316l2.414-.805a.5.5 0 0 0 .196-.12l6.813-6.814z"/>
-                      <path fill-rule="evenodd" d="M1 13.5A1.5 1.5 0 0 0 2.5 15h11a1.5 1.5 0 0 0 1.5-1.5v-6a.5.5 0 0 0-1 0v6a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 .5-.5H9a.5.5 0 0 0 0-1H2.5A1.5 1.5 0 0 0 1 2.5z"/>
-                    </svg></button> 
-                    <button type="button" class="del-btn small-btn"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash3-fill" viewBox="0 0 16 16">
-                      <path d="M11 1.5v1h3.5a.5.5 0 0 1 0 1h-.538l-.853 10.66A2 2 0 0 1 11.115 16h-6.23a2 2 0 0 1-1.994-1.84L2.038 3.5H1.5a.5.5 0 0 1 0-1H5v-1A1.5 1.5 0 0 1 6.5 0h3A1.5 1.5 0 0 1 11 1.5m-5 0v1h4v-1a.5.5 0 0 0-.5-.5h-3a.5.5 0 0 0-.5.5M4.5 5.029l.5 8.5a.5.5 0 1 0 .998-.06l-.5-8.5a.5.5 0 1 0-.998.06m6.53-.528a.5.5 0 0 0-.528.47l-.5 8.5a.5.5 0 0 0 .998.058l.5-8.5a.5.5 0 0 0-.47-.528M8 4.5a.5.5 0 0 0-.5.5v8.5a.5.5 0 0 0 1 0V5a.5.5 0 0 0-.5-.5"/>
-                    </svg></button>
-                  </div>
-                  <div class="row">
-                    <h3>Atoski slikarski dnevnik</h3>
-                    <button type="button" class="edit-fest-btn small-btn"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-pencil-square" viewBox="0 0 16 16">
-                      <path d="M15.502 1.94a.5.5 0 0 1 0 .706L14.459 3.69l-2-2L13.502.646a.5.5 0 0 1 .707 0l1.293 1.293zm-1.75 2.456-2-2L4.939 9.21a.5.5 0 0 0-.121.196l-.805 2.414a.25.25 0 0 0 .316.316l2.414-.805a.5.5 0 0 0 .196-.12l6.813-6.814z"/>
-                      <path fill-rule="evenodd" d="M1 13.5A1.5 1.5 0 0 0 2.5 15h11a1.5 1.5 0 0 0 1.5-1.5v-6a.5.5 0 0 0-1 0v6a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 .5-.5H9a.5.5 0 0 0 0-1H2.5A1.5 1.5 0 0 0 1 2.5z"/>
-                    </svg></button> 
-                    <button type="button" class="del-btn small-btn"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash3-fill" viewBox="0 0 16 16">
-                      <path d="M11 1.5v1h3.5a.5.5 0 0 1 0 1h-.538l-.853 10.66A2 2 0 0 1 11.115 16h-6.23a2 2 0 0 1-1.994-1.84L2.038 3.5H1.5a.5.5 0 0 1 0-1H5v-1A1.5 1.5 0 0 1 6.5 0h3A1.5 1.5 0 0 1 11 1.5m-5 0v1h4v-1a.5.5 0 0 0-.5-.5h-3a.5.5 0 0 0-.5.5M4.5 5.029l.5 8.5a.5.5 0 1 0 .998-.06l-.5-8.5a.5.5 0 1 0-.998.06m6.53-.528a.5.5 0 0 0-.528.47l-.5 8.5a.5.5 0 0 0 .998.058l.5-8.5a.5.5 0 0 0-.47-.528M8 4.5a.5.5 0 0 0-.5.5v8.5a.5.5 0 0 0 1 0V5a.5.5 0 0 0-.5-.5"/>
-                    </svg></button>
-                  </div>
-                  <div class="row">
-                    <h3>Karneval u Platamonu</h3>
-                    <button type="button" class="edit-fest-btn small-btn"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-pencil-square" viewBox="0 0 16 16">
-                      <path d="M15.502 1.94a.5.5 0 0 1 0 .706L14.459 3.69l-2-2L13.502.646a.5.5 0 0 1 .707 0l1.293 1.293zm-1.75 2.456-2-2L4.939 9.21a.5.5 0 0 0-.121.196l-.805 2.414a.25.25 0 0 0 .316.316l2.414-.805a.5.5 0 0 0 .196-.12l6.813-6.814z"/>
-                      <path fill-rule="evenodd" d="M1 13.5A1.5 1.5 0 0 0 2.5 15h11a1.5 1.5 0 0 0 1.5-1.5v-6a.5.5 0 0 0-1 0v6a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 .5-.5H9a.5.5 0 0 0 0-1H2.5A1.5 1.5 0 0 0 1 2.5z"/>
-                    </svg></button> 
-                    <button type="button" class="del-btn small-btn"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash3-fill" viewBox="0 0 16 16">
-                      <path d="M11 1.5v1h3.5a.5.5 0 0 1 0 1h-.538l-.853 10.66A2 2 0 0 1 11.115 16h-6.23a2 2 0 0 1-1.994-1.84L2.038 3.5H1.5a.5.5 0 0 1 0-1H5v-1A1.5 1.5 0 0 1 6.5 0h3A1.5 1.5 0 0 1 11 1.5m-5 0v1h4v-1a.5.5 0 0 0-.5-.5h-3a.5.5 0 0 0-.5.5M4.5 5.029l.5 8.5a.5.5 0 1 0 .998-.06l-.5-8.5a.5.5 0 1 0-.998.06m6.53-.528a.5.5 0 0 0-.528.47l-.5 8.5a.5.5 0 0 0 .998.058l.5-8.5a.5.5 0 0 0-.47-.528M8 4.5a.5.5 0 0 0-.5.5v8.5a.5.5 0 0 0 1 0V5a.5.5 0 0 0-.5-.5"/>
-                    </svg></button>
-                  </div>
-                  <div class="row">
-                    <h3>Egejske Kulturne Noći</h3>
-                    <button type="button" class="edit-fest-btn small-btn"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-pencil-square" viewBox="0 0 16 16">
-                      <path d="M15.502 1.94a.5.5 0 0 1 0 .706L14.459 3.69l-2-2L13.502.646a.5.5 0 0 1 .707 0l1.293 1.293zm-1.75 2.456-2-2L4.939 9.21a.5.5 0 0 0-.121.196l-.805 2.414a.25.25 0 0 0 .316.316l2.414-.805a.5.5 0 0 0 .196-.12l6.813-6.814z"/>
-                      <path fill-rule="evenodd" d="M1 13.5A1.5 1.5 0 0 0 2.5 15h11a1.5 1.5 0 0 0 1.5-1.5v-6a.5.5 0 0 0-1 0v6a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 .5-.5H9a.5.5 0 0 0 0-1H2.5A1.5 1.5 0 0 0 1 2.5z"/>
-                    </svg></button> 
-                    <button type="button" class="del-btn small-btn"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash3-fill" viewBox="0 0 16 16">
-                      <path d="M11 1.5v1h3.5a.5.5 0 0 1 0 1h-.538l-.853 10.66A2 2 0 0 1 11.115 16h-6.23a2 2 0 0 1-1.994-1.84L2.038 3.5H1.5a.5.5 0 0 1 0-1H5v-1A1.5 1.5 0 0 1 6.5 0h3A1.5 1.5 0 0 1 11 1.5m-5 0v1h4v-1a.5.5 0 0 0-.5-.5h-3a.5.5 0 0 0-.5.5M4.5 5.029l.5 8.5a.5.5 0 1 0 .998-.06l-.5-8.5a.5.5 0 1 0-.998.06m6.53-.528a.5.5 0 0 0-.528.47l-.5 8.5a.5.5 0 0 0 .998.058l.5-8.5a.5.5 0 0 0-.47-.528M8 4.5a.5.5 0 0 0-.5.5v8.5a.5.5 0 0 0 1 0V5a.5.5 0 0 0-.5-.5"/>
-                    </svg></button>
-                  </div>
-                  <div class="row">
-                    <h3>Vrasna Etno Festival</h3>
-                    <button type="button" class="edit-fest-btn small-btn"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-pencil-square" viewBox="0 0 16 16">
-                      <path d="M15.502 1.94a.5.5 0 0 1 0 .706L14.459 3.69l-2-2L13.502.646a.5.5 0 0 1 .707 0l1.293 1.293zm-1.75 2.456-2-2L4.939 9.21a.5.5 0 0 0-.121.196l-.805 2.414a.25.25 0 0 0 .316.316l2.414-.805a.5.5 0 0 0 .196-.12l6.813-6.814z"/>
-                      <path fill-rule="evenodd" d="M1 13.5A1.5 1.5 0 0 0 2.5 15h11a1.5 1.5 0 0 0 1.5-1.5v-6a.5.5 0 0 0-1 0v6a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 .5-.5H9a.5.5 0 0 0 0-1H2.5A1.5 1.5 0 0 0 1 2.5z"/>
-                    </svg></button> 
-                    <button type="button" class="del-btn small-btn"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash3-fill" viewBox="0 0 16 16">
-                      <path d="M11 1.5v1h3.5a.5.5 0 0 1 0 1h-.538l-.853 10.66A2 2 0 0 1 11.115 16h-6.23a2 2 0 0 1-1.994-1.84L2.038 3.5H1.5a.5.5 0 0 1 0-1H5v-1A1.5 1.5 0 0 1 6.5 0h3A1.5 1.5 0 0 1 11 1.5m-5 0v1h4v-1a.5.5 0 0 0-.5-.5h-3a.5.5 0 0 0-.5.5M4.5 5.029l.5 8.5a.5.5 0 1 0 .998-.06l-.5-8.5a.5.5 0 1 0-.998.06m6.53-.528a.5.5 0 0 0-.528.47l-.5 8.5a.5.5 0 0 0 .998.058l.5-8.5a.5.5 0 0 0-.47-.528M8 4.5a.5.5 0 0 0-.5.5v8.5a.5.5 0 0 0 1 0V5a.5.5 0 0 0-.5-.5"/>
-                    </svg></button>
-                  </div>
-                </div>
-              </div>
-              <button type="submit" class="confirmbtn" onclick="editItem(1)">Izmeni </button>
-              <button type="button" class="cancelbtn" onclick="hideEditDialog12()">Otkaži</button>
-            </div>
-          </div>
-
-          <td><button type="button" class="del-btn" onclick="showDeleteConfirmation()">Obriši</button></td>
-        </tr>
-        <tr>
-          <td>3</td>
-          <td>Lazarevac Fest</td>
-          <td>Karađorđeva 12, Lazarevac, 11550</td>
-          <td>2018</td>
-          <td>https://i.imgur.com/NhAzBBF.jpeg</td>
-          <td>014/7552-322</td>
-          <td><a href=mailto:"office@lazarevacmusicdays.rs">office@lazarevacmusicdays.rs</a></td>
-          <td><button type="button" class="edit-btn">Izmeni</button></td>
-          <td><button type="button" class="del-btn" onclick="showDeleteConfirmation()">Obriši</button></td>
-        </tr>
+          </div> 
+            
       </tbody>
     </table>
 
-    <script src="admin.js"></script>
+    <script src="organizers.js"></script>
     </body>
 </html>

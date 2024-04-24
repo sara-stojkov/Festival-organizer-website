@@ -130,7 +130,6 @@
       <table id="tabela_korisnika" cellpadding="1vw" border="2" style="margin-bottom: 3vw;"> 
         <thead>
           <tr>
-            <th>ID</th>
             <th>Ime</th>
             <th>Prezime</th>
             <th>Korisničko ime</th>
@@ -144,21 +143,13 @@
           </tr>
         </thead>
         <tbody id="all-users">
-          <tr>
-            <td>1</td>
-            <td>Petar</td>
-            <td>Pavlović</td>
-            <td>petar_p</td>
-            <td><a href=mailto:"petar.pavlovic@example.com">petar.pavlovic@example.com</a></td>
-            <td>1994-10-22</td>
-            <td>Bulevar Oslobođenja 101, Novi Sad, 21000</td>
-            <td>061123123</td>
-            <td>Softverski inženjer</td>
-            <td><button type="button" class="edit-btn" onclick="showEditDialog1()">Izmeni</button></td>
 
+          <div id="edit-modal-container" class="modal">
+          </div>
+          
             <div id="edituser1" class="modal edit-entity">
               <div class="modal-content editting">
-                <span class="close" onclick="hideEditDialog1()">&times;</span>
+                <span class="close" onclick="hideEditDialog()">&times;</span>
                 <h2>Izmena korisnika</h2>
                   <div class="col">
                     <label for="name">Ime:</label>
@@ -180,139 +171,32 @@
                     <label for="occupation">Zanimanje:</label>
                     <input type="text" id="occupation" name="occupation" value="Softverski inženjer"><br>
 
-                  <button type="submit" class="confirmbtn" onclick="editItem(1)" style="align-self: center;">Izmeni </button>
-                  <button type="button" class="cancelbtn" onclick="hideEditDialog1()">Otkaži</button>
+                    <button type="submit" class="confirmbtn" onclick="editUser()" style="align-self: center;">Izmeni </button>
+                    <button type="button" class="cancelbtn" onclick="hideEditDialog()">Otkaži</button>
+                  </div>
             </div>
-              </div>
-              
-            </div>
-
-            <td>
-              <button type="button" class="del-btn" onclick="showDeleteConfirmationUser()">Obriši</button>
-            </td>
-
-          </tr>
-          <div id="deleteConfirmationModal-user" class="modal">
-            <div class="modal-content">
+          </div>
+          <div id="deleteConfirmationModal-user" class="modal delete-confirmation">
+            <div class="modal-content delete-content">
               <span class="close" onclick="hideDeleteConfirmationUser()">&times;</span>
               <h2>Da li ste sigurni da želite da obrišete ovog korisnika?</h2>
               <p>Ova radnja ne može biti poništena.</p>
-              <button type="button" class="confirmbtn" onclick="deleteItem()">Da, obriši <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash3-fill" viewBox="0 0 16 16">
+              <button type="button" class="confirmbtn" onclick="deleteUser()">Da, obriši <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash3-fill" viewBox="0 0 16 16">
                 <path d="M11 1.5v1h3.5a.5.5 0 0 1 0 1h-.538l-.853 10.66A2 2 0 0 1 11.115 16h-6.23a2 2 0 0 1-1.994-1.84L2.038 3.5H1.5a.5.5 0 0 1 0-1H5v-1A1.5 1.5 0 0 1 6.5 0h3A1.5 1.5 0 0 1 11 1.5m-5 0v1h4v-1a.5.5 0 0 0-.5-.5h-3a.5.5 0 0 0-.5.5M4.5 5.029l.5 8.5a.5.5 0 1 0 .998-.06l-.5-8.5a.5.5 0 1 0-.998.06m6.53-.528a.5.5 0 0 0-.528.47l-.5 8.5a.5.5 0 0 0 .998.058l.5-8.5a.5.5 0 0 0-.47-.528M8 4.5a.5.5 0 0 0-.5.5v8.5a.5.5 0 0 0 1 0V5a.5.5 0 0 0-.5-.5"/>
               </svg></button>
               <button type="button" class="cancelbtn" onclick="hideDeleteConfirmationUser()">Otkaži</button>
             </div>
           </div>
-          <tr>
-            <td>2</td>
-            <td>Jovana</td>
-            <td>Janković</td>
-            <td>jovana_j</td>
-            <td><a href=mailto:"jovana.jankovic@example.com">jovana.jankovic@example.com</a></td>
-            <td>1982-05-05</td>
-            <td>Nikole Pašića 15, Zrenjanin, 23000</td>
-            <td>062987987</td>
-            <td>Grafički dizajner</td>
-            <td><button type="button" class="edit-btn" onclick="showEditDialog2()">Izmeni</button></td>
+          
+        
 
-            <div id="edituser2" class="modal edit-entity">
-              <div class="modal-content editting">
-                <span class="close" onclick="hideEditDialog2()">&times;</span>
-                <h2>Izmena korisnika</h2>
-                  <div class="col">
-                    <label for="name">Ime:</label>
-                    <input type="text" id="name" name="name" value="Jovana"><br>
-                    <label for="lastname">Prezime:</label>
-                    <input type="text" id="lastname" name="lastname" value="Janković"><br>
-                    <label for="username">Korisničko ime:</label>
-                    <input type="text" id="username" name="username" value="jovana_j"><br>
-                    <label for="password">Lozinka:</label>
-                    <input type="text" id="password" name="password" value="novajovana321"><br>
-                    <label for="email">Email:</label>
-                    <input type="email" id="email" name="email" value="jovana.jankovic@example.com"><br>
-                    <label for="birthdate">Datum rođenja:</label>
-                    <input type="date" id="birthdate" name="birthdate" value="1982-05-05"><br>
-                    <label for="adress">Adresa:</label>
-                    <input type="text" id="adress" name="adress" value="Nikole Pašića 15, Zrenjanin, 23000"><br>
-                    <label for="phone">Telefon:</label>
-                    <input type="tel" id="phone" name="phone" value="062987987"><br>
-                    <label for="occupation">Zanimanje:</label>
-                    <input type="text" id="occupation" name="occupation" value="Grafički dizajner"><br>
-
-                    <button type="submit" class="confirmbtn" onclick="editItem(1)" style="align-self: center;">Izmeni </button>
-                    <button type="button" class="cancelbtn" onclick="hideEditDialog2()" style="align-self: center;">Otkaži</button>
-            </div>
-              </div>
-              
-            </div>
-
-            <td><button type="button" class="del-btn" onclick="showDeleteConfirmationUser()">Obriši</button></td>
-          </tr>
-          <tr>
-            <td>3</td>
-            <td>Marko</td>
-            <td>Marić</td>
-            <td>markom</td>
-            <td><a href=mailto:"marko.maric@example.com">marko.maric@example.com</a></td>
-            <td>1990-09-17</td>
-            <td>Knez Mihailova 22, Beograd, 11000</td>
-            <td>063456456</td>
-            <td>Projektni menadžer</td>
-            <td><button type="button" class="edit-btn" onclick="showEditDialog3()">Izmeni</button></td>
-
-            <div id="edituser3" class="modal edit-entity">
-              <div class="modal-content editting">
-                <span class="close" onclick="hideEditDialog3()">&times;</span>
-                <h2>Izmena korisnika</h2>
-                  <div class="col">
-                    <label for="name">Ime:</label>
-                    <input type="text" id="name" name="name" value="Marko"><br>
-                    <label for="lastname">Prezime:</label>
-                    <input type="text" id="lastname" name="lastname" value="Marić"><br>
-                    <label for="username">Korisničko ime:</label>
-                    <input type="text" id="username" name="username" value="markom"><br>
-                    <label for="password">Lozinka:</label>
-                    <input type="text" id="password" name="password" value="novamarko321"><br>
-                    <label for="email">Email:</label>
-                    <input type="email" id="email" name="email" value="marko.maric@example.com"><br>
-                    <label for="birthdate">Datum rođenja:</label>
-                    <input type="date" id="birthdate" name="birthdate" value="1990-09-17"><br>
-                    <label for="adress">Adresa:</label>
-                    <input type="text" id="adress" name="adress" value="Knez Mihailova 22, Beograd, 11000"><br>
-                    <label for="phone">Telefon:</label>
-                    <input type="tel" id="phone" name="phone" value="063456456"><br>
-                    <label for="occupation">Zanimanje:</label>
-                    <input type="text" id="occupation" name="occupation" value="Projektni menadžer"><br>
-                    
-                    <button type="submit" class="confirmbtn" onclick="editItem(3)" style="align-self: center;">Izmeni </button>
-                    <button type="button" class="cancelbtn" onclick="hideEditDialog3()" style="align-self: center;">Otkaži</button>
-            </div>
-              </div>
-              
-            </div>
-
-            <td><button type="button" class="del-btn" onclick="showDeleteConfirmationUser()">Obriši</button></td>
 
             
-          </tr>
         </tbody>
       </table>
 
-      <!-- The core Firebase JS SDK is always required and must be listed first -->
-    <!-- <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-app.js"></script> -->
-
-    <!-- TODO: Add SDKs for Firebase products that you want to use
-        https://firebase.google.com/docs/web/setup#available-libraries -->
-
-    <!-- Firebase Authentication -->
-    <!-- <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-auth.js"></script> -->
-
-    <!-- Firebase Database -->
-    <!-- <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-database.js"></script> -->
-
-    <!-- Your custom script -->
     <script src="../main page/script.js" defer></script>  
-    <script src="admin.js" defer></script>
+    <script src="users.js" defer></script>
 
     </body>
 </html>

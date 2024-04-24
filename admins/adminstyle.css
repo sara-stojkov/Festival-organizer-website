@@ -31,10 +31,24 @@ table, th, td {
     text-align: justify;
   }
 
-.modal-content#deleteDialog {
-    height: 50%;
-    padding: 4vh;
+.delete-content{
+    height: 60%;
+    padding: 5vh;
     margin-top: 0;
+    padding-top: 10vh;
+}
+
+
+#deleteConfirmationModal-user{
+    display: none;
+    position: fixed;
+    z-index: 10;
+    padding-top: 4vh;
+    left: 0;
+    top: 0;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(0,0,0,0.4);
 }
 
 .del-btn:hover {
@@ -43,14 +57,7 @@ table, th, td {
 
 .confirmbtn{
     background-color: green;
-}
-
-.modal-content, .editting {
-    padding: 2vh;
-    margin-top: 0;
-    width: 75%;
-    height: auto;
-    overflow: auto; 
+    width: 80%;
 }
 
 .small-btn {
@@ -63,4 +70,29 @@ table, th, td {
 
 input{
     width: auto;
+}
+
+.edit-user-modal {
+    display: none;
+    position: fixed;
+    z-index: 10;
+    padding-top: 4vh;
+    left: 0;
+    top: 0;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(0,0,0,0.4);
+}
+
+.edit-user-content {
+    width: 60%;
+    padding: 4vh;
+    margin-top: 0;
+    padding-top: 5vh;
+    padding-bottom: 0.5vh;
+}
+
+.col{
+    margin: 1vh;
+    width: 70%;
 }
