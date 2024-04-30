@@ -58,6 +58,11 @@ table, th, td {
 .confirmbtn{
     background-color: green;
     width: 80%;
+    font-size: x-large;
+}
+
+.cancelbtn{
+    font-size: x-large;
 }
 
 .small-btn {
