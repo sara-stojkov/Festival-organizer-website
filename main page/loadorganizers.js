@@ -25,7 +25,7 @@ function generateCardsFromData(cardData) {
         }
         
         const card = document.createElement('div');
-        card.className = 'card column';
+        card.className = 'card';
 
         card.innerHTML = `
             <img src="${value.logo}" alt="${value.naziv}" class="cardimg">

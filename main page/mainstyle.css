@@ -21,25 +21,15 @@ header {
     padding: 10px;
 }
 
-.sticky {
-    position: fixed;
-    top: 0;
-    width: 100%;
-    z-index: 999999;
+button {
+background-color: orchid;
+color: white;
+padding: 14px 20px;
+margin: 8px 0;
+border: none;
+cursor: pointer;
+width: 100%;
 }
-
-.sticky + .content {
-    padding-top: 3vw;
-}
-  button {
-    background-color: orchid;
-    color: white;
-    padding: 14px 20px;
-    margin: 8px 0;
-    border: none;
-    cursor: pointer;
-    width: 100%;
-  }
 .nav-item {
     padding: 10px;
     font-size: 1.5vw;
@@ -67,6 +57,10 @@ header {
 .navbar-toggler {
     border: none;
     background: transparent;
+}
+
+.btn{
+    font-size: x-large;
 }
 
 .linkbtn {
@@ -142,7 +136,6 @@ a.btnlinks {
 }
 
 #loginbtn {
-    font-size: 1.5vw;
     color: darkslategray;
     border-color: darkslategray;
     background-color: white;
@@ -164,7 +157,6 @@ a.btnlinks {
     border-color: lightslategray;
     background-color: white;
     margin:1vw;
-    font-size: 1.5vw;
    
 }
 
@@ -320,21 +312,22 @@ body {
     max-width: 32%;
   }
   
-  @media screen and (max-width: 992px) {
+/* @media screen and (max-width: 992px) {
     .column {
-      flex: 50%;
-      margin-bottom: 1vw;
+        flex: 50%;
+        margin-bottom: 1vw;
     }
-  }
-  
+} */
 
 
-.card {
+
+.card{
     width: 30%;
     padding: 10px;
     border: 0.2vw solid lightgray;
     border-radius: 1vw;
     margin: 2vh;
+    align-items: center;
   }
 
 .cardimg {
@@ -362,7 +355,23 @@ body {
     object-fit: cover;
     border-radius: 1vw;
 }
-  
+
+@media only screen and (max-width: 600px) {
+    .row {
+        display: block; /* Change to block layout for stacking */
+    }
+    .card {
+        width: 100%; /* Full width for each card on phones */
+        margin-bottom: 20px; /* Adjust margin for spacing */
+    }
+}
+
+@media screen and (max-width: 992px) {
+    .cardtitle {
+        font-size: xx-large;  
+    }
+}  
+
 .modal {
     display: none; 
     position: fixed; 
@@ -441,14 +450,14 @@ body {
     margin-left: 2vw;
     border: none;
     cursor: pointer;
-    font-size: 1.5vw;
+    font-size: x-large;
 }
 
 .glavnodugme {
     width: 55%;
     background-color: orchid;
     border-radius: 1vh;
-    font-size: 1.8vw;
+    font-size: x-large;
     color: white;
     padding: 1vw 2vw;
     margin-top: 0.5vw;
@@ -617,7 +626,15 @@ span.psw {
     width: 60%;
     padding: 2vw;
   }
-  
+
+  @media only screen and (max-width: 600px) {
+   .column1-2{
+    width: 100%;
+   }
+   .column2-2{
+    width: 100%;
+   }
+}
 .row:after {
     content: "";
     display: table;
@@ -682,7 +699,7 @@ span.psw {
 }
 
 #regtitle {
-    font-size: 2.2vw;
+    font-size: x-large;
     color: black;
     padding-top: 1vw;
     text-align: center;
