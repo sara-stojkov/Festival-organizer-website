@@ -8,6 +8,8 @@ function fetchCardDataAndGenerateCards() {
     })
     .catch(error => {
         console.error('Error fetching card data:', error);
+        const errorMessage = encodeURIComponent(error.message);
+        window.location.href = `fetch_error.html?message=${errorMessage}`;
     });
 }
 

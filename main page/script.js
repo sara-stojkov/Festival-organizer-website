@@ -71,7 +71,7 @@ function register(e) {
     })
   }).then(resonse => resonse.json())
   .then(() => alert("Registracija uspešna!"))
-  .catch(e => alert("Greška"))
+  .catch(e => alert("Greška prilikom registracije"))
   var modal = document.getElementById('register-modal-popup');
   modal.classList.add('hidden');
   document.getElementById('regform').reset();
