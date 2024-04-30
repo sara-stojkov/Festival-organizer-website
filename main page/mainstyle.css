@@ -304,23 +304,6 @@ body {
     margin-left: 1vw;
 }
 
-.column {
-    flex: 30%;
-    padding: 2vw;
-    align-items: center;
-    margin-left: 1vw;
-    max-width: 32%;
-  }
-  
-/* @media screen and (max-width: 992px) {
-    .column {
-        flex: 50%;
-        margin-bottom: 1vw;
-    }
-} */
-
-
-
 .card{
     width: 30%;
     padding: 10px;
