@@ -184,5 +184,6 @@ function login(e) {
     var modal = document.getElementById('login-modal-popup');
   modal.classList.add('hidden');
   document.getElementById('loginForm').reset()
+  document.getElementById('login-modal-popup').style.display='none'
 }
 
