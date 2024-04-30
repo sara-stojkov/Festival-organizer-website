@@ -14,6 +14,8 @@ function loadUsers() {
     })
     .catch(error => {
         console.error('Error fetching data:', error);
+        const errorMessage = encodeURIComponent(error.message);
+        window.location.href = `fetch_error.html?message=${errorMessage}`;
     });
   }
   

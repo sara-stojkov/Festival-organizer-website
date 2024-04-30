@@ -24,6 +24,8 @@ function loadOrganizers() {
   })
   .catch(error => {
       console.error('Error fetching data:', error);
+      const errorMessage = encodeURIComponent(error.message);
+      window.location.href = `fetch_error.html?message=${errorMessage}`;
   });
 }
 
@@ -130,7 +132,10 @@ function createEditModalOrganizer(organizerId, organizerData) {
         festivalsContainer.appendChild(newFestivalButton);
 
     })
-    .catch(error => console.error('Error fetching festivals:', error));
+    .catch(error => {
+      console.error('Error fetching festivals:', error);
+      const errorMessage = encodeURIComponent(error.message);
+      window.location.href = `fetch_error.html?message=${errorMessage}`;});
   editModal.appendChild(editModalContent);
   document.body.appendChild(editModal);
 }
@@ -164,6 +169,8 @@ function deleteOrganizer() {
   .catch(error => {
     alert('Došlo je do greške pri brisanju: ' + error.message);
     console.error('Error deleting organizer:', error);
+    const errorMessage = encodeURIComponent(error.message);
+    window.location.href = `fetch_error.html?message=${errorMessage}`;
   });
   hideDeleteConfirmationOrganizer();
 }
