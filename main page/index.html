@@ -135,7 +135,7 @@
             <img id="slikavelika" src="https://youthtimemag.com/wp-content/uploads/2022/06/202932866_4072466892844815_4645820099669825212_n-1200x500.jpeg" title="Top 6 letnjih festivala na Balkanu" alt="Letnji festivali na Balkanu">
           </a>
           <div class="overlay-text-special">
-            <h2 style="font-size: 4vw; text-indent: 5vw;">Dobrodošli! </h2>
+            <h2 style="font-size: 4vw; text-indent: 5vw;" id="dobrodosli-main">Dobrodošli! </h2>
             <article>
               <p id="intro"><strong>Hasta la Fiesta</strong> (u značenju <em>do zabave</em> na španskom) je agencija koja već 2 godine pomaže na putu od ideje ka realizaciji raznih festivala. Ništa od toga ne bi bilo moguće bez naših vrednih organizatora ⇩ </p> 
             </article>
@@ -145,89 +145,18 @@
     
     <h2 id="podnaslov">Upoznajte sve organizatore:</h2>
 
-      <div class="row">
+    <div id="sve-kartice">
 
-        <div class="column card">
-          <img src="https://i.imgur.com/OV15WM6.jpeg" width="100%" title="BeoArt Fest" class="cardimg">
-          <p class="cardtitle content">BeoArt Fest</p>
-          <button class="linkbtn" type="button" ><a href="../organizatori/beoart fest/beoart fest.html" class="btnlinks">Idi na stranicu</a></button>
-        </div>
-        
-        <div class="column card">
-          <img src="https://i.imgur.com/jsFrKCn.jpeg" width="100%" title="Etno Srbija" class="cardimg">
-          <p class="cardtitle content">Etno Srbija</p>
-          <button class="linkbtn" type="button" ><a href="../organizatori/etno srbija/etno srbija.html" class="btnlinks">Idi na stranicu</a></button>
-        </div>
+    </div>
 
-        <div class="column card">
-          <img src="https://i.imgur.com/NhAzBBF.jpeg" width="100%" title="Lazarevac Fest" class="cardimg">
-          <p class="cardtitle content">Lazarevac Fest</p>
-          <button class="linkbtn" type="button" ><a href="../organizatori/lazarevac fest/lazarevac fest.html" class="btnlinks">Idi na stranicu</a></button>
-        </div>
-      </div>
-      <br/>
-        
-      <div class="row">
-
-        <div class="column card">
-          <img src="https://i.imgur.com/k4nEZm6.jpeg" width="100%" title="Dunavski Horizonti" class="cardimg">
-          <p class="cardtitle content">Dunavski Horizonti</p>
-          <button class="linkbtn" type="button" ><a href="../organizatori/dunavski horizonti/dunavski horizonti.html" class="btnlinks">Idi na stranicu</a></button>
-        </div>
-
-        <div class="column card" >
-          <img src="https://i.imgur.com/nmAOOHF.jpeg" width="100%" title="Urban Beat" class="cardimg">
-          <p class="cardtitle content">Urban Beat</p>
-          <button class="linkbtn" type="button" ><a href="../organizatori/urban beat/urban beat.html" class="btnlinks">Idi na stranicu</a></button>
-        </div>
-
-        <div class="column card">
-          <img src="https://i.imgur.com/GXPCPrq.jpeg" width="100%" title="Gari Fest" class="cardimg">
-          <p class="cardtitle content">Gari Fest</p>
-          <button class="linkbtn" type="button" ><a href="../organizatori/gari fest/gari fest.html" class="btnlinks">Idi na stranicu</a></button>
-        </div>
-
-      </div>
-      <br/>
-      <div class="row">
-
-        <div class="column card">
-          <img src="https://i.imgur.com/LpxNm2V.jpeg" width="100%" title="EtnoFest Beograd" class="cardimg">
-          <p class="cardtitle content">EtnoFest Beograd</p>
-          <button class="linkbtn" type="button" ><a href="../organizatori/etnofest beograd/etnofest beograd.html" class="btnlinks">Idi na stranicu</a></button>
-        </div>
-
-        <div class="column card">
-          <img src="https://i.imgur.com/koU4UuR.jpeg" width="100%" title="Belgrade Urban Fest" class="cardimg">
-          <p class="cardtitle content">Belgrade Urban Fest</p>
-          <button class="linkbtn" type="button" ><a href="../organizatori/belgrade urban fest/belgrade urban fest.html" class="btnlinks">Idi na stranicu</a></button>
-        </div>
-
-        <div class="column card">
-          <img src="https://i.imgur.com/zUrrGam.jpeg" width="100%" title="Niš Fest" class="cardimg">
-          <p class="cardtitle content">Niš Fest</p>
-          <button class="linkbtn" type="button" ><a href="../organizatori/nis fest/nis fest.html" class="btnlinks">Idi na stranicu</a></button>
-        </div>
-        </div>
-      </div>
+    
     <footer>
       <div class="layout-container" id="nazadnavrh" width="100%">
         <a href="#" class="linkovi"><u>Nazad na vrh stranice</u></a>
       </div>
     </footer>
-    <!-- The core Firebase JS SDK is always required and must be listed first -->
-    <script src="https://www.gstatic.com/firebasejs/10.10.0/firebase-app.js"></script>
-
-    <!-- TODO: Add SDKs for Firebase products that you want to use
-        https://firebase.google.com/docs/web/setup#available-libraries -->
-
-    <!-- Firebase Authentication -->
-    <script src="https://www.gstatic.com/firebasejs/10.10.0/firebase-auth.js"></script>
-
-    <!-- Firebase Database -->
-    <script src="https://www.gstatic.com/firebasejs/10.10.0/firebase-database.js"></script>
-
-    <!-- Your custom script -->
+    
+    <script src="loadorganizers.js"></script>  
     <script src="script.js"></script>  
     
 </body>

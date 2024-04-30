@@ -1,29 +1,4 @@
-// Your web app's Firebase configuration
-//  const firebaseConfig = {
-//   apiKey: "AIzaSyDIzbybru9FTtUBYQ-V9l5bboT6a9eOuDE",
-//   authDomain: "hasta-la-fiesta.firebaseapp.com",
-//   databaseURL: "https://hasta-la-fiesta-default-rtdb.europe-west1.firebasedatabase.app",
-//   projectId: "hasta-la-fiesta",
-//   storageBucket: "hasta-la-fiesta.appspot.com",
-//   messagingSenderId: "1098342569306",
-//   appId: "1:1098342569306:web:ae62c7538d1a692203cf63"
-// };
 
-// Initialize Firebase
-//const app = initializeApp(firebaseConfig);
-
-//var database_ref = firebase.database();
-
-// window.onscroll = function() {
-//   var header = document.getElementById("header");
-//   var sticky = header.offsetTop;
-  
-//   if (window.scrollY > sticky) {
-//     header.classList.add("sticky");
-//   } else {
-//     header.classList.remove("sticky");
-//   }
-// };
 
 var loginModal = document.getElementById('login-modal-popup');
 var registerModal = document.getElementById('register-modal-popup');
@@ -34,9 +9,6 @@ window.onclick = function(event) {
     registerModal.style.display = "none";
   }
 }
-
-// const auth = firebase.auth();
-// const database = firebase.database();
 
 document.getElementById("regform").addEventListener("submit", register);
 
@@ -81,7 +53,9 @@ function register(e) {
   }).then(resonse => resonse.json())
   .then(() => alert("Registracija uspešna!"))
   .catch(e => alert("Greška"))
-
+  var modal = document.getElementById('register-modal-popup');
+  modal.classList.add('hidden');
+  document.getElementById('regform').reset();
 }
 
 function validate_password(password) {
@@ -123,6 +97,7 @@ function login(e) {
           if (data[userKey].korisnickoIme === username) {
             if (data[userKey].lozinka === password) {
               alert("Uspešno ste prijavljeni!");
+
               return; 
             } else {
               alert("Pogrešna lozinka!");
@@ -139,24 +114,25 @@ function login(e) {
       console.error('Greška:', error);
       alert("Greška prilikom prijave.");
     });
+    var modal = document.getElementById('login-modal-popup');
+  modal.classList.add('hidden');
+  document.getElementById('loginForm').reset()
 }
 
 function searchPage() {
-  // Get the search query entered by the user
   var searchQuery = document.getElementById('searchbar').value.trim().toLowerCase();
   
-  // Remove existing highlights
   var highlights = document.querySelectorAll('.highlight');
   highlights.forEach(function(element) {
       element.classList.remove('highlight');
   });
   
-  // If the search query is empty, exit the function
   if (searchQuery === '') return;
   
-  // Find and highlight matching text, excluding button elements
   var elements = document.querySelectorAll('.content');
   elements.forEach(function(element) {
+      const targetElement = document.getElementById('sve-kartice');
+      targetElement.scrollIntoView({ behavior: 'smooth' });
       highlightTextInElement(element, searchQuery);
   });
 }
@@ -173,19 +149,16 @@ function highlightTextInElement(element, searchQuery) {
               var matchedText = node.nodeValue.substring(index, index + searchQuery.length);
               var afterText = node.nodeValue.substring(index + searchQuery.length);
 
-              // Create a new span element to wrap the matching text
               var span = document.createElement('span');
               span.classList.add('highlight');
               span.appendChild(document.createTextNode(matchedText));
 
-              // Insert the highlighted text at the correct position
               if (beforeText) {
                   var beforeTextNode = document.createTextNode(beforeText);
                   node.parentNode.insertBefore(beforeTextNode, node);
               }
               node.parentNode.insertBefore(span, node);
               
-              // Update the node value to continue searching for subsequent occurrences
               node.nodeValue = afterText;
               text = node.nodeValue.toLowerCase();
               index = text.indexOf(searchQuery);

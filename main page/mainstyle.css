@@ -8,12 +8,13 @@
 
 header {
     background-color: orchid;
-    padding: 1.5%;
-    border: 4% solid orchid;
+    padding: 2%;
+    border: 6% solid orchid;
+    width: 100%;
 }
 
 #naziv {
-    font-size: 2vw;
+    font-size: xx-large !important;
 }
 .navbar-brand {
     font-size: 5vw;
@@ -47,6 +48,7 @@ header {
 .nav-link {
     text-decoration: none;
     color: black;
+    font-size: x-large;
 }
 
 .nav-link:hover {
@@ -84,7 +86,7 @@ header {
 }
 
 a.btnlinks {
-    font-size: 2vw;
+    font-size: x-large !important;
     color: white;
     text-decoration: none;
     text-underline-position: below;
@@ -213,7 +215,8 @@ a.linkovi {
 }
 
 #podnaslov{
-    text-indent: 5%;
+    padding: 4vh;
+    padding-bottom: 2vh;
 }
 
 div.container {
@@ -310,18 +313,12 @@ body {
     margin-left: 1vw;
 }
 
-.card-car {
-    width: 100%;
-    padding: 10px;
-    border: 0.2vw solid lightgray;
-    border-radius: 1vw;
-}
-  
 .column {
     flex: 30%;
     padding: 2vw;
     align-items: center;
     margin-left: 1vw;
+    max-width: 32%;
   }
   
   @media screen and (max-width: 992px) {
@@ -338,6 +335,7 @@ body {
     padding: 10px;
     border: 0.2vw solid lightgray;
     border-radius: 1vw;
+    margin: 2vh;
   }
 
 .cardimg {
@@ -348,10 +346,17 @@ body {
 }
 
 .cardtitle {
-    font-size: 3vw;
+    font-size: 300%;
     color: black;
     text-align: center;
+    padding-top: 5%
 }
+
+@media screen and (max-width: 992px) {
+    .cardtitle {
+      font-size: xx-large;  
+    }
+  }
 
 .card-img-top {
     aspect-ratio: 3/2;
@@ -362,7 +367,7 @@ body {
 .modal {
     display: none; 
     position: fixed; 
-    z-index: 100; 
+    z-index: 1000; 
     left: 0;
     top: 0;
     width: 100%;
@@ -370,7 +375,7 @@ body {
     overflow: hidden;
     background-color: rgb(0,0,0); 
     background-color: rgba(0,0,0,0.4); 
-    padding-top: 60px;
+    padding-top: 3vh;
     align-items: center;
     align-content: center;
     align-self: center;
@@ -380,9 +385,9 @@ body {
   .modal-content {
     background-color: #fefefe;
     margin: 3vw auto; 
+    padding: 4vh;
     border: 0.5vw solid #888;
     width: 70%; 
-    height: 100%;
     align-items: center;
     align-content: center;
   }
@@ -460,7 +465,6 @@ body {
     align-content: center;
     margin-left: 2vw;
     margin-right: 2vw;
-    padding-left: 3vw;
 }
 
 .container#registerinfo {
@@ -481,7 +485,7 @@ body {
 }
 
 label {
-    font-size: 1.5vw;
+    font-size: xx-large;
     color: black;
     align-self: left;
     align-items: left;
@@ -492,7 +496,7 @@ label {
 input.logininpt{
     border: 0.1vw solid lightgray;
     border-radius: 0.4vw;
-    font-size: 1.5vw;
+    font-size: xx-large;
     width: 80%;
     align-self: left;
     margin-bottom: 2vw;
@@ -501,14 +505,14 @@ input.logininpt{
 input.registerinfo{
     border: 0.1vw solid lightgray;
     border-radius: 0.4vw;
-    font-size: 1.3vw;
+    font-size: x-large;
     width: 80%;
     align-self: left;
     margin-bottom: 1.1vw;
 }
 
 label.registerinfo {
-    font-size: 1.2vw;
+    font-size: x-large;
     margin: 0;
     padding: 0;
 }
@@ -578,6 +582,8 @@ span.psw {
 .overlay-text h1 {
     font-size: 7vw;
     font-style: bold;
+    padding: 5%;
+    font-size: xx-large;
 }
 
 .overlay-text-special {
@@ -601,13 +607,15 @@ span.psw {
 }
 
 .column1-2 {
+    padding-top: 2%;
+    padding-left: 2%;
     float: left;
-    width: 30%;
+    width: 40%;
   }
 
 .column2-2 {
     float: left;
-    width: 70%;
+    width: 60%;
     padding: 2vw;
   }
   
@@ -638,7 +646,7 @@ span.psw {
 }
 
 .d-block, .w-100 {
-    aspect-ratio: 2/1;
+    aspect-ratio: 3/2;
     object-fit: cover;  
     border-radius: 2vw;
 }
@@ -649,7 +657,7 @@ span.psw {
     margin-right: 2vw;
     padding-left: 3vw;
     padding-right: 3vw;
-    font-size: 1.8vw;
+    font-size: x-large;
 }
 
 .festlinks {
@@ -732,3 +740,64 @@ ul.navbar-nav{
     padding-left: 0;
     padding-right: 0;
 }
+
+#register-modal-popup {
+    transition: opacity 0.5s ease; 
+    opacity: 1; 
+  }
+  
+  #register-modal-popup.hidden {
+    opacity: 0; 
+    pointer-events: none; 
+  }
+
+#ikonica {
+    width: 7vw;
+}
+
+@media screen and (max-width: 768px) {
+    #ikonica {
+        width: 20vw !important;    
+    }
+}
+
+@media screen and (max-width: 768px) {
+    #logo-naziv {
+        align-content: left;
+        align-items: left;    
+    }
+}
+@media screen and (max-width: 768px) {
+    .navbar>.container-fluid{
+        justify-content: center;
+    }
+}
+
+#organizator-slika{
+    max-height: 150vh;
+}
+
+#naziv-organizatora{
+    font-size: 300%;
+}
+
+#searchbtn-fest{
+    color: white;
+    background-color: orchid;
+    border-color: orchid;
+    font-size: xx-large;
+    font-style: bold;
+    margin-left: 0.5vw;
+    margin: 0.5vw;
+    padding-right: 0.1vw;
+    padding-left: 0.1vw;
+}
+
+#searchbtn-fest:hover{
+    color: white;
+    background-color: rgb(176, 79, 173);
+    border: 1% rgb(136, 51, 134);
+}
+
+
+  
