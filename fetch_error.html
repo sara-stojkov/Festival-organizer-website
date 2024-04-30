@@ -6,7 +6,17 @@
     <title>Greška</title>
 </head>
 <body>
-    <h1>Došlo je do greške u pribavljanju podataka iz baze. <br/> Probajte ponovo.</h1>
-    <h3>Kod greške: xxx </h3>
+    <h1>Došlo je do greške. <br/> Probajte ponovo.</h1>
+    <h3>Poruka greške: <h2 id="error-message"></h2></h3>
+
+    <script>
+        const params = new URLSearchParams(window.location.search);
+
+        const errorMessage = params.get("message");
+
+        if (errorMessage) {
+            document.getElementById("error-message").textContent = errorMessage;
+}
+    </script>
 </body>
 </html>
