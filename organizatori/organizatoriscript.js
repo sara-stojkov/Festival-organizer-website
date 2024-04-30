@@ -75,6 +75,8 @@ function generateOrganizerSite() {
                     })
                     .catch(error => {
                         console.error('Error fetching data:', error);
+                        const errorMessage = encodeURIComponent(error.message);
+                        window.location.href = `fetch_error.html?message=${errorMessage}`;
                     });
             } else {
                 console.error('No data found at Firebase location:', firebaseURL);
@@ -82,6 +84,8 @@ function generateOrganizerSite() {
         })
         .catch(error => {
             console.error('Error fetching data from Firebase:', error);
+            const errorMessage = encodeURIComponent(error.message);
+            window.location.href = `fetch_error.html?message=${errorMessage}`;
         });
 }
 
@@ -290,6 +294,8 @@ function generateFestivalSite(){
     })
     .catch(error => {
         console.error('Error fetching data from Firebase:', error);
+        const errorMessage = encodeURIComponent(error.message);
+        window.location.href = `fetch_error.html?message=${errorMessage}`;
     });
 }
 
