@@ -1,3 +1,4 @@
+
 function loadUsers() {
     fetch('https://hasta-la-fiesta-default-rtdb.europe-west1.firebasedatabase.app/korisnici.json')
     .then(response => response.json())
@@ -129,6 +130,29 @@ function editUser(userId) {
         zanimanje: document.getElementById(`edit-occupation-${userId}`).value
     };
 
+    if (validate_email(updatedUserData.email) === false || validate_password(updatedUserData.lozinka) === false || validate_field(updatedUserData.korisnickoIme) === false || validate_field(updatedUserData.ime) === false || validate_field(updatedUserData.prezime) === false || validate_field(updatedUserData.datumRodjenja) === false || validate_field(updatedUserData.adresa) === false || validate_field(updatedUserData.telefon) === false || validate_field(updatedUserData.zanimanje) === false) {
+        return;
+      }
+    
+      if (! validate_email_format(updatedUserData.email)){
+        alert('Email nije u dobrom formatu!');
+        return;
+      }
+    
+      if (! validate_birthdate(updatedUserData.datumRodjenja)){
+        alert('Greška sa datumom rođenja, sajt ne dozvoljava osobe mlađe od 5 godina..')
+        return;
+      }
+    
+      if (! validate_address(updatedUserData.adresa)){
+        return;
+      }
+    
+      if (! validate_phonenumber(updatedUserData.telefon)){
+        alert("Broj telefona nije validan!");
+        return;
+      }
+
     fetch(`https://hasta-la-fiesta-default-rtdb.europe-west1.firebasedatabase.app/korisnici/${userId}.json`, {
     method: 'PATCH',
     headers: {
@@ -149,3 +173,76 @@ function editUser(userId) {
     console.error('Error editing user:', error);
     });
 }
+
+function validate_password(password) {
+    if (password.length < 6) {
+      alert('Lozinka mora da ima bar 6 karaktera');
+      return false;
+    }
+    return true;
+  }
+  
+  function validate_field(field) {
+    if (field.length < 1) {
+      alert('Polje ne sme biti prazno');
+      return false;
+    }
+    return true;
+  }
+  
+  function validate_email(email) {
+    if (!email.includes('@')) {
+      alert('Email mora da sadrži @');
+      return false;
+    }
+    return true;
+  }
+  
+  function validate_email_format(email) {
+    const regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    return regex.test(email);
+  }
+  
+  function validate_birthdate(inputDate) {
+    var parts = inputDate.split('/');
+    var inputYear = parseInt(parts[2], 10);
+    var inputMonth = parseInt(parts[1], 10) - 1; 
+    var inputDay = parseInt(parts[0], 10);
+  
+    var minDate = new Date(2020, 0, 1); 
+  
+    var date = new Date(inputYear, inputMonth, inputDay);
+  
+    if (date < minDate) {
+        return false; 
+    } else {
+        return true; 
+    }
+  }
+  
+  function validate_address(inputAddress){
+    if (!inputAddress.includes(',')) {
+      alert('Adresa treba da bude u formatu: ulica i broj, mesto/grad, poštanski broj');
+      return false;
+    }
+    return true;
+  }
+  
+  function validate_phonenumber(phoneNumber) {
+    var numericPhoneNumber = phoneNumber.replace(/\D/g, '');
+  
+    if (numericPhoneNumber.length !== phoneNumber.length) {
+      return false;
+  }
+  
+    if (numericPhoneNumber.length === 0) {
+        return false; 
+    }
+  
+    if (numericPhoneNumber.length < 7 || numericPhoneNumber.length > 15) {
+        return false;
+    }
+  
+    return true;
+  }
+  

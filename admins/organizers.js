@@ -57,25 +57,28 @@ function createEditModalOrganizer(organizerId, organizerData) {
       <span class="close" onclick="hideEditOrganizerDialog('${organizerId}')">&times;</span>
       <h2>Izmena organizatora i njegovih festivala</h2>
       <div class="row">
-        <div class="col">
+        <div class="col" style="padding-left:0;">
+        <form id=editOrganizer>
           <label for="name">Naziv:</label>
-          <input type="text" id="edit-name-${organizerId}" name="name" value="${organizerData.naziv || ''}"><br>
+          <input type="text" id="edit-name-${organizerId}" name="name" value="${organizerData.naziv || ''}" required><br>
           <label for="address">Adresa:</label>
-          <input type="text" id="edit-address-${organizerId}" name="address" value="${organizerData.adresa || ''}"><br>
+          <input type="text" id="edit-address-${organizerId}" name="address" value="${organizerData.adresa || ''}" required><br>
           <label for="year">Godina osnivanja:</label>
-          <input type="number" id="edit-year-${organizerId}" name="year" value="${organizerData.godinaOsnivanja || ''}"><br>
+          <input type="number" id="edit-year-${organizerId}" name="year" value="${organizerData.godinaOsnivanja || ''}" required><br>
           <label for="logo">Link do logoa:</label>
-          <input type="text" id="edit-logo-${organizerId}" name="logo" value="${organizerData.logo || ''}"><br>
+          <input type="text" id="edit-logo-${organizerId}" name="logo" value="${organizerData.logo || ''}" required><br>
           <label for="phone">Kontakt telefon:</label>
-          <input type="tel" id="edit-phone-${organizerId}" name="phone" value="${organizerData.kontaktTelefon || ''}"><br>
+          <input type="tel" id="edit-phone-${organizerId}" name="phone" value="${organizerData.kontaktTelefon || ''}" required><br>
           <label for="birthdate">Email:</label>
-          <input type="email" id="edit-email-${organizerId}" name="email" value="${organizerData.email || ''}"><br>
+          <input type="email" id="edit-email-${organizerId}" name="email" value="${organizerData.email || ''}" required><br>
+          <button type="button" class="confirmbtn" onclick="editOrganizer('${organizerId}')" style="align-self: center;">Izmeni</button>
+          <button type="button" class="cancelbtn edit-org-cancel" onclick="hideEditOrganizerDialog('${organizerId}')">Otkaži</button>
+        </form>
         </div>
 
         <div class="col buttons" id="festivals-organizer-${organizerId}">
         </div>
-        <button type="button" class="confirmbtn" onclick="editOrganizer('${organizerId}')" style="align-self: center;">Izmeni</button>
-        <button type="button" class="cancelbtn edit-org-cancel" onclick="hideEditOrganizerDialog('${organizerId}')">Otkaži</button>
+        
       </div>
 
   `;
@@ -186,6 +189,35 @@ function editOrganizer(organizerId) {
   
   };
 
+  if (validate_field(updatedOrganizerData.naziv) === false || validate_field(updatedOrganizerData.adresa) === false || validate_field(updatedOrganizerData.godinaOsnivanja) === false || validate_field(updatedOrganizerData.logo) === false || validate_field(updatedOrganizerData.kontaktTelefon) === false || validate_field(updatedOrganizerData.email) === false) {
+    alert('Sva polja moraju biti popunjena!');
+    return;
+  }
+
+  
+  if (! validate_address(updatedOrganizerData.adresa)){
+    return;
+  }
+
+  if (! validate_email_format(updatedOrganizerData.email)){
+    alert('Email nije u dobrom formatu!');
+    return;
+  }
+
+  if (parseInt(updatedOrganizerData.godinaOsnivanja, 10) > 2024){
+    alert("Nije osnovano u budućnosti. Problem sa godinom osnivanja! ")
+    return;
+  }
+
+  valid_link(updatedOrganizerData.logo)
+    .then(valid => {
+        if (valid) {
+        } else {
+            alert("Link do logoa nije validan!");
+            return;
+        }
+    });
+
   fetch(`https://hasta-la-fiesta-default-rtdb.europe-west1.firebasedatabase.app/organizatoriFestivala/${organizerId}.json`, {
     method: 'PATCH',
     headers: {
@@ -207,6 +239,36 @@ function editOrganizer(organizerId) {
   });
 }
 
+function validate_field(field) {
+  if (field.length < 1) {
+    alert('Polje ne sme biti prazno');
+    return false;
+  }
+  return true;
+}
+
+function validate_address(inputAddress){
+  if (!inputAddress.includes(',')) {
+    alert('Adresa treba da bude u formatu: ulica i broj, mesto/grad, poštanski broj');
+    return false;
+  }
+  return true;
+}
+
+function validate_email_format(email) {
+  const regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+  return regex.test(email);
+}
+
+async function valid_link(url) {
+  try {
+      const response = await fetch(url, { method: 'HEAD' });
+      return response.ok;
+  } catch (error) {
+      return false;
+  }
+}
+
 function hideNewFestivalDialog() {
   document.getElementById('newFestivalModal').style.display = 'none';
 }
@@ -218,26 +280,59 @@ function showNewFestivalDialog(organizerFestivalKey, organizerId) {
   confirmationModal.setAttribute('data-organizer-id',organizerFestivalKey);
 }
 
-function newFestival(){
-  var organizerId = document.getElementById('deleteConfirmationModal-organizer').getAttribute('data-organizer-id');
-  var festivalData = {
-    naziv: document.getElementById('naziv').value,
-    opis: document.getElementById('opis').value,
-    fotografije: document.getElementById('fotografije').value,
-    tip: document.getElementById('tip').value,
-    prevoz: document.getElementById('prevoz').value,
-    cena: document.getElementById('cena').value,
-    maxosoba: document.getElementById('maxOsoba').value,
+async function newFestival() {
+  const isValid = await validateNewFestivalForm();
+  
+  if (isValid) { 
+      const organizerId = document.getElementById('newFestivalModal').getAttribute('data-organizer-id');
 
-  };
+      const fotografijeLinkovi = document.getElementById("fotografijenew").value;
+      const nizLinkova = fotografijeLinkovi.split(",").map(link => link.trim());
 
+      const slikeHashMap = {};
+      nizLinkova.forEach((link, index) => {
+          slikeHashMap[index] = link;
+      });
+
+      const festivalData = {
+          naziv: document.getElementById('nazivnew').value,
+          opis: document.getElementById('opisnew').value,
+          tip: document.getElementById('tipnew').value,
+          prevoz: document.getElementById('prevoznew').value,
+          cena: document.getElementById('cenanew').value,
+          maxOsoba: document.getElementById('maxOsobanew').value,
+          slike: slikeHashMap
+      };
+
+      try {
+          const response = await fetch(`https://hasta-la-fiesta-default-rtdb.europe-west1.firebasedatabase.app/festivali/${organizerId}.json`, {
+              method: 'POST',
+              headers: {
+                  'Content-Type': 'application/json'
+              },
+              body: JSON.stringify(festivalData)
+          });
+
+          if (response.ok) {
+              alert('Uspešno ste kreirali novi festival!');
+              location.reload();
+          } else {
+              throw new Error('Neuspelo kreiranje novog festivala. Molimo pokušajte ponovo.');
+          }
+      } catch (error) {
+          alert('Došlo je do greške pri kreiranju novog festivala: ' + error.message);
+          console.error('Error creating new festival:', error);
+      }
+  } else {
+    alert("Novi festival nije kreiran zbog nevalidnih podataka.");
+  }
 }
 
 
+
+
 function deleteFestival(organizerFestivalKey, festivalKey) {
-  console.log("usli smo u fju brisanja...");
-  console.log(organizerFestivalKey);
-  console.log(festivalKey);
+
   fetch(`https://hasta-la-fiesta-default-rtdb.europe-west1.firebasedatabase.app/festivali/${organizerFestivalKey}/${festivalKey}.json`, {
     method: 'DELETE'
   })
@@ -254,3 +349,72 @@ function deleteFestival(organizerFestivalKey, festivalKey) {
     console.error('Error deleting organizer:', error);
   });
 }
+
+async function validateNewFestivalForm(){
+
+  const naziv = document.getElementById("nazivnew").value.trim();
+  const opis = document.getElementById("opisnew").value.trim();
+  const tip = document.getElementById("tipnew").value;
+  const prevoz = document.getElementById("prevoznew").value;
+  const cena = document.getElementById("cenanew").value.trim();
+  const maxOsoba = document.getElementById("maxOsobanew").value.trim();
+
+  if (naziv === "" || opis === "" || tip === "" || prevoz === "" || cena === "" || maxOsoba === "") {
+      alert("Sva polja moraju biti popunjena.");
+      return false;
+  }
+
+  if (naziv.length < 2){
+    alert("Naziv mora biti duži od 2 karaktera!")
+    return false;
+  }
+  if (opis.length < 10){
+    alert("Opis mora biti duži od 10 karaktera!")
+    return false;
+  }
+
+  if (parseFloat(cena) < 0) {
+    alert("Cena ne može biti negativna.");
+    return false;
+  }
+
+  if (parseFloat(maxOsoba) < 0) {
+    alert("Broj osoba ne može biti negativan.");
+    return false;
+  }
+
+  const fotografije = document.getElementById("fotografijenew").value.trim();
+  const fotografijeArray = fotografije.split(",");
+  const linkValidationPromises = [];
+
+  for (let i = 0; i < fotografijeArray.length; i++) {
+      const link = fotografijeArray[i].trim();
+      if (link === "") {
+          alert("Unesite validne linkove fotografija razdvojene zarezom (,).");
+          return false;
+      }
+
+      const linkValidationPromise = fetch(link)
+          .then(response => {
+              if (!response.ok) {
+                  alert(`Link ${link} nije validan.`);
+                  return Promise.reject(`Link ${link} nije validan.`);
+              }
+          })
+          .catch(error => {
+              alert(`Došlo je do greške prilikom provere linka ${link}: ${error.message}`);
+              return false;
+          });
+
+      linkValidationPromises.push(linkValidationPromise);
+  }
+
+  const linkValidationResults = await Promise.all(linkValidationPromises);
+
+  if (linkValidationResults.some(result => result === false)) {
+      return false;
+  }
+
+  return true;
+}
+

@@ -157,6 +157,7 @@
             <div class="modal-content new-fest-content" style="padding-top: 1%;">
                 <span class="close" onclick="hideNewFestivalDialog()">&times;</span>
                 <h2>Dodavanje novog festivala</h2>
+                <form id="newFestival">
                 <div class="row">
                 <div class="col">
                 <div class="row">
@@ -169,7 +170,7 @@
                 </div>
                 <div class="row">
                   <label for="fotografije" class="newfestinfo"><b>Fotografije</b></label>
-                  <textarea placeholder="Linkovi razdvojeni Enter-om" name="fotografije" class="newfestinfo" id="fotografijenew" required></textarea>
+                  <textarea placeholder="Linkovi razdvojeni zarezom (,)" name="fotografije" class="newfestinfo" id="fotografijenew" required></textarea>
               </div></div>
 
                 <div class="col">
@@ -197,15 +198,16 @@
               </div>
               <div class="row">
                   <label for="cena" class="newfestinfo">Cena (u dinarima)</label>
-                  <input type="number" id="cenanew" name="cena" class="newfestinfo">
+                  <input type="number" id="cenanew" name="cena" class="newfestinfo" required>
               </div>
               <div class="row">
                   <label for="maxOsoba" class="newfestinfo">Maksimalan broj osoba:</label>
-                  <input type="number" id="maxOsobanew" name="maxOsoba" class="newfestinfo">
+                  <input type="number" id="maxOsobanew" name="maxOsoba" class="newfestinfo" required>
               </div></div></div>
               <button type="button" class="confirmbtn" onclick="newFestival()">Kreiraj novi festival</button>
               <button type="button" class="cancelbtn" onclick="hideNewFestivalDialog()">Otkaži</button>
-            </div>
+            </form>
+          </div>
           </div>
             
       </tbody>
