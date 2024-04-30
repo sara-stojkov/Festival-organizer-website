@@ -45,7 +45,7 @@ function createUserRow(userId, userData) {
     editModalContent.innerHTML = `
         <span class="close" onclick="hideEditUserDialog('${userId}')">&times;</span>
         <h2>Izmena korisnika</h2>
-        <div class="col">
+        <div class="col" style="padding-top: 2%">
           <label for="name">Ime:</label>
           <input type="text" id='edit-name-${userId}' name="name" value="${userData.ime || ''}"><br>
           <label for="lastname">Prezime:</label>
@@ -64,8 +64,8 @@ function createUserRow(userId, userData) {
           <input type="tel" id='edit-phone-${userId}' name="phone" value="${userData.telefon || ''}"><br>
           <label for="occupation">Zanimanje:</label>
           <input type="text" id='edit-occupation-${userId}' name="occupation" value="${userData.zanimanje || ''}"><br>
-          <button type="button" class="confirmbtn" onclick="editUser('${userId}')" style="align-self: center;">Izmeni</button>
-          <button type="button" class="cancelbtn" onclick="hideEditUserDialog('${userId}')">Otkaži</button>
+          <button type="button" class="confirmbtn editbtn" onclick="editUser('${userId}')" style="align-self: center;">Izmeni</button>
+          <button type="button" class="cancelbtn editbtn" onclick="hideEditUserDialog('${userId}')">Otkaži</button>
         </div>
     `;
     editModal.appendChild(editModalContent);

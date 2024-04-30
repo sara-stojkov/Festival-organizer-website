@@ -52,18 +52,10 @@ function createEditModalOrganizer(organizerId, organizerData) {
   editModal.id = `EditDialog-organizer-${organizerId}`;
   editModal.style.display = 'none';
 
-  // let festivalsHTML = '';
-
-  // if (organizerData.festivali) {
-  //   Object.keys(organizerData.festivali).forEach(festivalId => {
-  //     const festivalData = organizerData.festivali[festivalId];
-  //     festivalsHTML += `<div class="row"><h3>${festivalData.naziv}</h3></div>`;
-  //   });
-  // }
 
   editModalContent.innerHTML = `
       <span class="close" onclick="hideEditOrganizerDialog('${organizerId}')">&times;</span>
-      <h2>Izmena organizatora</h2>
+      <h2>Izmena organizatora i njegovih festivala</h2>
       <div class="row">
         <div class="col">
           <label for="name">Naziv:</label>
@@ -80,13 +72,62 @@ function createEditModalOrganizer(organizerId, organizerData) {
           <input type="email" id="edit-email-${organizerId}" name="email" value="${organizerData.email || ''}"><br>
         </div>
 
-        <div class="col" id="festivals-organizer-${organizerId}">
+        <div class="col buttons" id="festivals-organizer-${organizerId}">
         </div>
         <button type="button" class="confirmbtn" onclick="editOrganizer('${organizerId}')" style="align-self: center;">Izmeni</button>
-        <button type="button" class="cancelbtn" onclick="hideEditOrganizerDialog('${organizerId}')">Otkaži</button>
+        <button type="button" class="cancelbtn edit-org-cancel" onclick="hideEditOrganizerDialog('${organizerId}')">Otkaži</button>
       </div>
+
   `;
-  
+
+  fetch(`https://hasta-la-fiesta-default-rtdb.europe-west1.firebasedatabase.app/festivali/${organizerData.festivali}.json`)
+    .then(response => response.json())
+    .then(newdata => {
+        const festivalsContainer = document.getElementById(`festivals-organizer-${organizerId}`);
+
+
+        Object.entries(newdata).forEach(([key, value]) => {
+            const rowDiv = document.createElement('div');
+            rowDiv.classList.add('row');
+
+            const h3Element = document.createElement('h3');
+            h3Element.textContent = value.naziv;
+
+            const deleteButton = document.createElement('button');
+            deleteButton.type = 'button';
+            deleteButton.classList.add('del-btn', 'small-btn', 'festdelbtn');
+            deleteButton.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash3-fill" viewBox="0 0 16 16">
+                                        <path d="M11 1.5v1h3.5a.5.5 0 0 1 0 1h-.538l-.853 10.66A2 2 0 0 1 11.115 16h-6.23a2 2 0 0 1-1.994-1.84L2.038 3.5H1.5a.5.5 0 0 1 0-1H5v-1A1.5 1.5 0 0 1 6.5 0h3A1.5 1.5 0 0 1 11 1.5m-5 0v1h4v-1a.5.5 0 0 0-.5-.5h-3a.5.5 0 0 0-.5.5M4.5 5.029l.5 8.5a.5.5 0 1 0 .998-.06l-.5-8.5a.5.5 0 1 0-.998.06m6.53-.528a.5.5 0 0 0-.528.47l-.5 8.5a.5.5 0 0 0 .998.058l.5-8.5a.5.5 0 0 0-.47-.528M8 4.5a.5.5 0 0 0-.5.5v8.5a.5.5 0 0 0 1 0V5a.5.5 0 0 0-.5-.5"/>
+                                      </svg>`;
+              deleteButton.onclick = () => {
+                if (window.confirm("Da li ste sigurni da želite da ga obrišete?")) {
+                    deleteFestival(organizerData.festivali, key);
+                }
+            };            
+            rowDiv.appendChild(h3Element);
+            rowDiv.appendChild(deleteButton);
+
+
+            festivalsContainer.appendChild(rowDiv);
+
+        });
+        
+        const hrElement = document.createElement('hr');
+        festivalsContainer.appendChild(hrElement);
+
+        const newFestivalButton = document.createElement('button');
+        newFestivalButton.type = 'button';
+        newFestivalButton.classList.add('small-btn');
+        newFestivalButton.classList.add('new-btn');
+        newFestivalButton.innerHTML = '+ Novi festival';
+        newFestivalButton.onclick = function() {
+          showNewFestivalDialog(organizerData.festivali, organizerId);
+        };
+
+        festivalsContainer.appendChild(newFestivalButton);
+
+    })
+    .catch(error => console.error('Error fetching festivals:', error));
   editModal.appendChild(editModalContent);
   document.body.appendChild(editModal);
 }
@@ -104,67 +145,23 @@ function hideDeleteConfirmationOrganizer() {
   document.getElementById('deleteConfirmationModal-organizer').style.display = 'none';
 }
   
-// function deleteOrganizer() {
-//   var organizerId = document.getElementById('deleteConfirmationModal-organizer').getAttribute('data-organizer-id');
-//   fetch(`https://hasta-la-fiesta-default-rtdb.europe-west1.firebasedatabase.app/organizatoriFestivala/${organizerId}.json`, {
-//     method: 'DELETE'
-//   })
-//   .then(response => {
-//     if (response.ok) {
-//       alert('Uspešno ste obrisali organizatora festivala!');
-//       location.reload();
-//     } else {
-//       throw new Error('Neuspelo brisanje organizatora. Molimo pokušajte ponovo.');
-//     }
-//   })
-//   .catch(error => {
-//     alert('Došlo je do greške pri brisanju: ' + error.message);
-//     console.error('Error deleting organizer:', error);
-//   });
-//   hideDeleteConfirmationOrganizer();
-// }
-
 function deleteOrganizer() {
   var organizerId = document.getElementById('deleteConfirmationModal-organizer').getAttribute('data-organizer-id');
-
-  fetch(`https://hasta-la-fiesta-default-rtdb.europe-west1.firebasedatabase.app/organizatoriFestivala/${organizerId}/festivali.json`)
-    .then(response => response.json())
-    .then(festivalsData => {
-      const savedFestivalData = festivalsData;
-
-      fetch(`https://hasta-la-fiesta-default-rtdb.europe-west1.firebasedatabase.app/organizatoriFestivala/${organizerId}.json`, {
-        method: 'DELETE'
-      })
-        .then(response => {
-          if (response.ok) {
-            alert('Uspešno ste obrisali organizatora festivala!');
-              const savedFestivalKey = savedFestivalData.festivali
-              fetch(`https://hasta-la-fiesta-default-rtdb.europe-west1.firebasedatabase.app/organizatoriFestivala//festivali/${savedFestivalKey}.json`, {
-                method: 'DELETE'
-              })
-                .then(() => {
-                  console.log('Uspešno obrisani festivali ovog organizatora.');
-                })
-                .catch(error => {
-                  console.error('Greška pri brisanju festivala.');
-                });
-            ;
-
-            location.reload();
-          } else {
-            throw new Error('Neuspelo brisanje organizatora. Molimo pokušajte ponovo.');
-          }
-        })
-        .catch(error => {
-          alert('Došlo je do greške pri brisanju: ' + error.message);
-          console.error('Error deleting organizer:', error);
-        });
-    })
-    .catch(error => {
-      alert('Došlo je do greške pri dobavljanju podataka o festivalima: ' + error.message);
-      console.error('Error fetching festivals data:', error);
-    });
-
+  fetch(`https://hasta-la-fiesta-default-rtdb.europe-west1.firebasedatabase.app/organizatoriFestivala/${organizerId}.json`, {
+    method: 'DELETE'
+  })
+  .then(response => {
+    if (response.ok) {
+      alert('Uspešno ste obrisali organizatora festivala!');
+      location.reload();
+    } else {
+      throw new Error('Neuspelo brisanje organizatora. Molimo pokušajte ponovo.');
+    }
+  })
+  .catch(error => {
+    alert('Došlo je do greške pri brisanju: ' + error.message);
+    console.error('Error deleting organizer:', error);
+  });
   hideDeleteConfirmationOrganizer();
 }
 
@@ -210,3 +207,50 @@ function editOrganizer(organizerId) {
   });
 }
 
+function hideNewFestivalDialog() {
+  document.getElementById('newFestivalModal').style.display = 'none';
+}
+
+function showNewFestivalDialog(organizerFestivalKey, organizerId) {
+  hideEditOrganizerDialog(organizerId)
+  var confirmationModal = document.getElementById('newFestivalModal');
+  confirmationModal.style.display = 'block';
+  confirmationModal.setAttribute('data-organizer-id',organizerFestivalKey);
+}
+
+function newFestival(){
+  var organizerId = document.getElementById('deleteConfirmationModal-organizer').getAttribute('data-organizer-id');
+  var festivalData = {
+    naziv: document.getElementById('naziv').value,
+    opis: document.getElementById('opis').value,
+    fotografije: document.getElementById('fotografije').value,
+    tip: document.getElementById('tip').value,
+    prevoz: document.getElementById('prevoz').value,
+    cena: document.getElementById('cena').value,
+    maxosoba: document.getElementById('maxOsoba').value,
+
+  };
+
+}
+
+
+function deleteFestival(organizerFestivalKey, festivalKey) {
+  console.log("usli smo u fju brisanja...");
+  console.log(organizerFestivalKey);
+  console.log(festivalKey);
+  fetch(`https://hasta-la-fiesta-default-rtdb.europe-west1.firebasedatabase.app/festivali/${organizerFestivalKey}/${festivalKey}.json`, {
+    method: 'DELETE'
+  })
+  .then(response => {
+    if (response.ok) {
+      alert('Uspešno ste obrisali festival!');
+      location.reload();
+    } else {
+      throw new Error('Neuspelo brisanje festival. Molimo pokušajte ponovo.');
+    }
+  })
+  .catch(error => {
+    alert('Došlo je do greške pri brisanju: ' + error.message);
+    console.error('Error deleting organizer:', error);
+  });
+}
