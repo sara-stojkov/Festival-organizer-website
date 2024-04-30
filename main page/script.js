@@ -34,6 +34,25 @@ function register(e) {
     return;
   }
 
+  if (! validate_email_format(email)){
+    alert('Email nije u dobrom formatu!');
+    return;
+  }
+
+  if (! validate_birthdate(birthdate)){
+    alert('Greška sa datumom rođenja, sajt ne dozvoljava osobe mlađe od 5 godina..')
+    return;
+  }
+
+  if (! validate_address(adress)){
+    return;
+  }
+
+  if (! validate_phonenumber(phoneNumber)){
+    alert("Broj telefona nije validan!");
+    return;
+  }
+
   fetch('https://hasta-la-fiesta-default-rtdb.europe-west1.firebasedatabase.app/korisnici.json', {
     method: 'POST',
     headers: {
@@ -59,8 +78,8 @@ function register(e) {
 }
 
 function validate_password(password) {
-  if (password.length < 8) {
-    alert('Password must be at least 8 characters long');
+  if (password.length < 6) {
+    alert('Lozinka mora da ima bar 6 karaktera');
     return false;
   }
   return true;
@@ -76,9 +95,57 @@ function validate_field(field) {
 
 function validate_email(email) {
   if (!email.includes('@')) {
-    alert('Email must contain @');
+    alert('Email mora da sadrži @');
     return false;
   }
+  return true;
+}
+
+function validate_email_format(email) {
+  const regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+  return regex.test(email);
+}
+
+function validate_birthdate(inputDate) {
+  var parts = inputDate.split('/');
+  var inputYear = parseInt(parts[2], 10);
+  var inputMonth = parseInt(parts[1], 10) - 1; 
+  var inputDay = parseInt(parts[0], 10);
+
+  var minDate = new Date(2020, 0, 1); 
+
+  var date = new Date(inputYear, inputMonth, inputDay);
+
+  if (date < minDate) {
+      return false; 
+  } else {
+      return true; 
+  }
+}
+
+function validate_address(inputAddress){
+  if (!inputAddress.includes(',')) {
+    alert('Adresa treba da bude u formatu: ulica i broj, mesto/grad, poštanski broj');
+    return false;
+  }
+  return true;
+}
+
+function validate_phonenumber(phoneNumber) {
+  var numericPhoneNumber = phoneNumber.replace(/\D/g, '');
+
+  if (numericPhoneNumber.length !== phoneNumber.length) {
+    return false;
+}
+
+  if (numericPhoneNumber.length === 0) {
+      return false; 
+  }
+
+  if (numericPhoneNumber.length < 7 || numericPhoneNumber.length > 15) {
+      return false;
+  }
+
   return true;
 }
 
@@ -118,58 +185,4 @@ function login(e) {
   modal.classList.add('hidden');
   document.getElementById('loginForm').reset()
 }
-
-function searchPage() {
-  var searchQuery = document.getElementById('searchbar').value.trim().toLowerCase();
-  
-  var highlights = document.querySelectorAll('.highlight');
-  highlights.forEach(function(element) {
-      element.classList.remove('highlight');
-  });
-  
-  if (searchQuery === '') return;
-  
-  var elements = document.querySelectorAll('.content');
-  elements.forEach(function(element) {
-      const targetElement = document.getElementById('sve-kartice');
-      targetElement.scrollIntoView({ behavior: 'smooth' });
-      highlightTextInElement(element, searchQuery);
-  });
-}
-
-function highlightTextInElement(element, searchQuery) {
-  var nodesToProcess = [element];
-  while (nodesToProcess.length > 0) {
-      var node = nodesToProcess.shift();
-      if (node.nodeType === Node.TEXT_NODE) {
-          var text = node.nodeValue.toLowerCase();
-          var index = text.indexOf(searchQuery);
-          while (index !== -1) {
-              var beforeText = node.nodeValue.substring(0, index);
-              var matchedText = node.nodeValue.substring(index, index + searchQuery.length);
-              var afterText = node.nodeValue.substring(index + searchQuery.length);
-
-              var span = document.createElement('span');
-              span.classList.add('highlight');
-              span.appendChild(document.createTextNode(matchedText));
-
-              if (beforeText) {
-                  var beforeTextNode = document.createTextNode(beforeText);
-                  node.parentNode.insertBefore(beforeTextNode, node);
-              }
-              node.parentNode.insertBefore(span, node);
-              
-              node.nodeValue = afterText;
-              text = node.nodeValue.toLowerCase();
-              index = text.indexOf(searchQuery);
-          }
-      } else if (node.nodeType === Node.ELEMENT_NODE && node.childNodes.length > 0 && node.tagName.toLowerCase() !== 'button') {
-          for (var i = 0; i < node.childNodes.length; i++) {
-              nodesToProcess.push(node.childNodes[i]);
-          }
-      }
-  }
-}
-
-
 

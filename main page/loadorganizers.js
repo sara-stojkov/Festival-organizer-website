@@ -38,3 +38,64 @@ function generateCardsFromData(cardData) {
 
 fetchCardDataAndGenerateCards();
 
+function searchPage() {
+    var searchQuery = document.getElementById('searchbar').value.trim().toLowerCase();
+    
+    var highlights = document.querySelectorAll('.highlight');
+    highlights.forEach(function(element) {
+        element.classList.remove('highlight');
+    });
+    
+    if (searchQuery === '') return;
+    
+    var elements = document.querySelectorAll('.content');
+    elements.forEach(function(element) {
+        const targetElement = document.getElementById('sve-kartice');
+        targetElement.scrollIntoView({ behavior: 'smooth' });
+        highlightTextInElement(element, searchQuery);
+    });
+  }
+  
+  function highlightTextInElement(element, searchQuery) {
+    var nodesToProcess = [element];
+    while (nodesToProcess.length > 0) {
+        var node = nodesToProcess.shift();
+        if (node.nodeType === Node.TEXT_NODE) {
+            var text = node.nodeValue.toLowerCase();
+            var index = text.indexOf(searchQuery);
+            while (index !== -1) {
+                var beforeText = node.nodeValue.substring(0, index);
+                var matchedText = node.nodeValue.substring(index, index + searchQuery.length);
+                var afterText = node.nodeValue.substring(index + searchQuery.length);
+  
+                var span = document.createElement('span');
+                span.classList.add('highlight');
+                span.appendChild(document.createTextNode(matchedText));
+  
+                if (beforeText) {
+                    var beforeTextNode = document.createTextNode(beforeText);
+                    node.parentNode.insertBefore(beforeTextNode, node);
+                }
+                node.parentNode.insertBefore(span, node);
+                
+                node.nodeValue = afterText;
+                text = node.nodeValue.toLowerCase();
+                index = text.indexOf(searchQuery);
+            }
+        } else if (node.nodeType === Node.ELEMENT_NODE && node.childNodes.length > 0 && node.tagName.toLowerCase() !== 'button') {
+            for (var i = 0; i < node.childNodes.length; i++) {
+                nodesToProcess.push(node.childNodes[i]);
+            }
+        }
+    }
+  }
+
+  
+  if (window.location.pathname.includes("index.html")) {
+      document.getElementById('searchbar').addEventListener('keydown', function(event) {
+      if (event.key === 'Enter') {
+        event.preventDefault(); 
+        searchPage();
+      }
+    });
+  }

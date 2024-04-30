@@ -105,7 +105,7 @@
                       <input type="text" placeholder="Unesite adresu" name="adresa" class="registerinfo" id="registeradress" required>
                       <br/>
                       <label for="telefon" class="registerinfo"><b>Telefon</b></label> <br/>
-                      <input type="text" placeholder="Unesite telefon" name="telefon" class="registerinfo" id="registerphone" required>
+                      <input type="phone" placeholder="Unesite telefon" name="telefon" class="registerinfo" id="registerphone" required>
                       <br/>
                       <label for="zanimanje" class="registerinfo"><b>Zanimanje</b></label> <br/>
                       <input type="text" placeholder="Unesite zanimanje" name="zanimanje" class="registerinfo" id="registeroccupation" required>
@@ -122,7 +122,7 @@
             </div>
 
             <form class="d-flex" id="searchForm" role="search">
-              <input class="form-control me-2" type="search" placeholder="Nađi organizatora" aria-label="Search" id="searchbar">
+              <input class="form-control me-2" type="search" placeholder="Unesi naziv.." aria-label="Search" id="searchbar" style="font-size: large;">
               <button class="btn btn-outline-success" id="searchbtn" type="button" onclick="searchPage()">Pretraga</button>
           </form>
           
@@ -141,8 +141,10 @@
             </article>
         </div>        
       </div>
-<hr/>
     
+    <div id="search-results-container"></div>
+
+    <hr/>
     <h2 id="podnaslov">Upoznajte sve organizatore:</h2>
 
     <div id="sve-kartice">
