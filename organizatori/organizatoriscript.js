@@ -90,125 +90,68 @@ if (window.location.pathname.includes("organizator.html")) {
 
 }
 
+function searchFestivals() {
+    const searchByNameCheckbox = document.querySelector('#searchByName');
+    const searchByTypeCheckbox = document.querySelector('#searchByType');
 
-// function searchFestivals() {
+    const searchQuery = document.getElementById('nameSearchBar').value.trim().toLowerCase();
+    const searchType = document.querySelector('select[name="dropdown-type"]').value.toLowerCase();
 
-//     const searchByNameCheckbox = document.querySelector('#searchByName');
+    const searchResultContainer = document.getElementById('search-result-container');
+    searchResultContainer.innerHTML = ''; // Clear previous search results
 
-//     const searchByTypeCheckbox = document.querySelector('#searchByType');  
+    const elements = document.querySelectorAll('.card');
 
+    const searchByName = searchByNameCheckbox.checked;
+    const searchByType = searchByTypeCheckbox.checked;
 
-//     if (!searchByNameCheckbox.checked && !searchByTypeCheckbox.checked) { // ako nista nije cekirano nema smisla traziti
-//         alert('Morate uključiti bar 1 parametar!');
-//         return;
-//     }
+    let searchResults = [];
 
-//     if (searchByNameCheckbox.checked && searchByTypeCheckbox.checked) {  // ako trazimo samo po nazivu
+    if (searchByName) {
+        searchResults.push([...elements].filter(element => {
+            const titleElement = element.querySelector('.card-title');
+            const title = titleElement.textContent.trim().toLowerCase();
+            return searchQuery !== '' && title.includes(searchQuery);
+        }));
+    }
 
-//         var searchQuery = document.getElementById('nameSearchBar').value.trim().toLowerCase();  // the festival name is the search query
+    if (searchByType) {
+        searchResults.push([...elements].filter(element => {
+            const typeElement = element.querySelector('.card-text');
+            const type = typeElement.textContent.trim().toLowerCase();
+            return searchType !== '' && type.includes(searchType);
+        }));
+    }
 
-//         var highlights = document.querySelectorAll('.highlight');
+    let intersection = searchResults.reduce((acc, cur) => acc.filter(value => cur.includes(value)));
 
-//     highlights.forEach(function(element) {
-//         element.classList.remove('highlight');
-//     });
-    
-//     if (searchQuery === '') return;
-    
-//     var elements = document.querySelectorAll('.card-title')
-//     elements.forEach(function(element) {
-//         highlightTextInElement(element, searchQuery);
-//     });
-//   }
-  
-//   function highlightTextInElement(element, searchQuery) {
-//     var nodesToProcess = [element];
-//     while (nodesToProcess.length > 0) {
-//         var node = nodesToProcess.shift();
-//         if (node.nodeType === Node.TEXT_NODE) {
-//             var text = node.nodeValue.toLowerCase();
-//             var index = text.indexOf(searchQuery);
-//             while (index !== -1) {
-//                 var beforeText = node.nodeValue.substring(0, index);
-//                 var matchedText = node.nodeValue.substring(index, index + searchQuery.length);
-//                 var afterText = node.nodeValue.substring(index + searchQuery.length);
-  
-//                 var span = document.createElement('span');
-//                 span.classList.add('highlight');
-//                 span.appendChild(document.createTextNode(matchedText));
-  
-//                 if (beforeText) {
-//                     var beforeTextNode = document.createTextNode(beforeText);
-//                     node.parentNode.insertBefore(beforeTextNode, node);
-//                 }
-//                 node.parentNode.insertBefore(span, node);
-                
-//                 node.nodeValue = afterText;
-//                 text = node.nodeValue.toLowerCase();
-//                 index = text.indexOf(searchQuery);
-//             }
-//         } else if (node.nodeType === Node.ELEMENT_NODE && node.childNodes.length > 0 && node.tagName.toLowerCase() !== 'button') {
-//             for (var i = 0; i < node.childNodes.length; i++) {
-//                 nodesToProcess.push(node.childNodes[i]);
-//             }
-//         }
-//     }
-//   }
+    if (intersection.length === 0) {
+        const noResultMessage = document.createElement('h3');
+        noResultMessage.textContent = 'Nema rezultata pretrage...';
+        noResultMessage.classList.add('no-results');
+        searchResultContainer.appendChild(noResultMessage);
+    } else {
+        const rowDiv = document.createElement('div');
+        rowDiv.classList.add('row', 'justify-content-start'); // Add class to align cards to the left
+        let cardCount = 0;
 
-// }
+        intersection.forEach(element => {
+            if (cardCount % 3 === 0) {
+                rowDiv.innerHTML += '</div><div class="row justify-content-start">'; // Adjust row count for 2 cards per row
+            }
+            const clonedCard = element.cloneNode(true);
+            highlightCard(clonedCard);
+            rowDiv.appendChild(clonedCard);
+            cardCount++;
+        });
 
-//     var festivalType = document.querySelector('#type-select select').value;
+        searchResultContainer.appendChild(rowDiv);
+    }
+}
 
-    
-//     var highlights = document.querySelectorAll('.highlight');
-//     highlights.forEach(function(element) {
-//         element.classList.remove('highlight');
-//     });
-    
-//     if (searchQuery === '') return;
-    
-//     var elements = document.querySelectorAll('.content');
-//     elements.forEach(function(element) {
-//         const targetElement = document.getElementById('sve-kartice');
-//         targetElement.scrollIntoView({ behavior: 'smooth' });
-//         highlightTextInElement(element, searchQuery);
-//     });
-  
-  
-//   function highlightTextInElement(element, searchQuery) {
-//     var nodesToProcess = [element];
-//     while (nodesToProcess.length > 0) {
-//         var node = nodesToProcess.shift();
-//         if (node.nodeType === Node.TEXT_NODE) {
-//             var text = node.nodeValue.toLowerCase();
-//             var index = text.indexOf(searchQuery);
-//             while (index !== -1) {
-//                 var beforeText = node.nodeValue.substring(0, index);
-//                 var matchedText = node.nodeValue.substring(index, index + searchQuery.length);
-//                 var afterText = node.nodeValue.substring(index + searchQuery.length);
-  
-//                 var span = document.createElement('span');
-//                 span.classList.add('highlight');
-//                 span.appendChild(document.createTextNode(matchedText));
-  
-//                 if (beforeText) {
-//                     var beforeTextNode = document.createTextNode(beforeText);
-//                     node.parentNode.insertBefore(beforeTextNode, node);
-//                 }
-//                 node.parentNode.insertBefore(span, node);
-                
-//                 node.nodeValue = afterText;
-//                 text = node.nodeValue.toLowerCase();
-//                 index = text.indexOf(searchQuery);
-//             }
-//         } else if (node.nodeType === Node.ELEMENT_NODE && node.childNodes.length > 0 && node.tagName.toLowerCase() !== 'button') {
-//             for (var i = 0; i < node.childNodes.length; i++) {
-//                 nodesToProcess.push(node.childNodes[i]);
-//             }
-//         }
-//     }
-//   }
-
+function highlightCard(card) {
+    card.classList.add('highlight');
+}
 
 // kod za generisanje sajta festivala
 
@@ -350,19 +293,4 @@ function generateFestivalSite(){
     });
 }
 
-function getFestivalIcon(festType) {
-    switch (festType) {
-        case 'Muzički':
-            return 'bi-music-note';
-        case 'Umetnički':
-            return 'bi-paint-brush';
-        case 'Filmski':
-            return 'bi-camera';
-        case 'Gastronomski':
-            return 'bi-egg-fried';
-        case 'Edukativni':
-            return 'bi-book';
-        default:
-            return 'bi-emoji-frown'; 
-    }
-}
+
