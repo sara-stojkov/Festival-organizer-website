@@ -163,8 +163,9 @@ function login(e) {
         for (const userKey in data) {
           if (data[userKey].korisnickoIme === username) {
             if (data[userKey].lozinka === password) {
-              alert("Uspešno ste prijavljeni!");
-
+              alert(`Uspešno ste prijavljeni kao ${username}!`);
+              document.getElementById('login-modal-popup').style.display='none';
+              document.getElementById('loginForm').reset()
               return; 
             } else {
               alert("Pogrešna lozinka!");
@@ -181,9 +182,6 @@ function login(e) {
       console.error('Greška:', error);
       alert("Greška prilikom prijave.");
     });
-    var modal = document.getElementById('login-modal-popup');
-  modal.classList.add('hidden');
-  document.getElementById('loginForm').reset()
-  document.getElementById('login-modal-popup').style.display='none'
+    
 }
 
